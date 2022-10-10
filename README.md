@@ -23,6 +23,15 @@ Proyek ini dibuat oleh kelompok F11 yang beranggotakan sebagai berikut.
 - [Syahrul Apriansyah](https://github.com/SyahrulApr86) (2106708311)
 - [Yudi Putra Sabri](https://github.com/yudiptr) (2106706123)
 
+## 📋 Daftar Modul 📋
+Berikut ini adalah daftar modul yang akan diimplementasikan beserta pengembang dari setiap modul.
+- Pelayanan Dokter - [Yudi Putra Sabri](https://github.com/yudiptr)
+- Pelayanan Apotek (Ketersediaan obat, harga) - [Yudi Putra Sabri](https://github.com/yudiptr) dan [Syahrul Apriansyah](https://github.com/SyahrulApr86)
+- Pelayanan Konseling - [Syahrul Apriansyah](https://github.com/SyahrulApr86)
+- Operasi - [Dianisa Wulandari](https://github.com/dianisa)
+- Pembayaran - [Undissya Putri Maharani](https://github.com/UndissyaPutri)
+- Ambulance - [Kezia Natalia](https://github.com/kezianatalia)
+
 ## 👥 Persona 👥
 ### 🔒 User Yang Tidak Login 🔒
 User yang tidak login dapat : Cek daftar obat yang tersedia, Cek jadwal dokter pada, dan Cek ketersediaan ambulance
