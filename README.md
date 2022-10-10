@@ -14,7 +14,7 @@ Proyek ini dapat diakses di [uihealcast.herokuapp.com](https://uihealcast.heroku
 ## 📋 Latar Belakang 📋
 Arsitektur Kesehatan menjadi salah satu isu penting dalam Presidensi G20 Indonesia 2022. Fokus dari isu ini adalah mengenai kesiapan transformasi infrastruktur kesehatan global. Sejalan dengan tema presidensi G20 “Recover Together, Recover Stronger”, kontribusi melalui penguatan sistem kesehatan perlu ditingkatkan. Penguatan sistem yang inklusif dan responsif terhadap krisis dapat melalui sistem informasi.
 Permasalahan sulitnya mendapatkan informasi Kesehatan dengan cepat membawa kita pada solusi usulan berupa sistem informasi kesehatan yang terintegrasi dengan pihak penyedia jasa fasilitas kesehatan untuk memudahkan masyarakat mendapatkan informasi secara efisien.  Aplikasi ini akan membantu pengguna dengan cakupan RS UI dan Klinik Makara dalam menjaga kesehatannya.
-
+ 
 ## 👨‍💻 Pengembang 👩‍💻
 Proyek ini dibuat oleh kelompok F11 yang beranggotakan sebagai berikut.
 - [Dianisa Wulandari](https://github.com/dianisa) (2106702150)
