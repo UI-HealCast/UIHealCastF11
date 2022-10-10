@@ -26,29 +26,28 @@ Proyek ini dibuat oleh kelompok F11 yang beranggotakan sebagai berikut.
 ## 📋 Daftar Modul 📋
 Berikut ini adalah daftar modul yang akan diimplementasikan beserta pengembang dari setiap modul.
 - Pelayanan Dokter - [Yudi Putra Sabri](https://github.com/yudiptr)
-- Pelayanan Apotek (Ketersediaan obat, harga) - [Yudi Putra Sabri](https://github.com/yudiptr) dan [Syahrul Apriansyah](https://github.com/SyahrulApr86)
+- Pelayanan Apotek (Ketersediaan obat, harga) - [Kezia Natalia](https://github.com/kezianatalia)
 - Pelayanan Konseling - [Syahrul Apriansyah](https://github.com/SyahrulApr86)
 - Operasi - [Dianisa Wulandari](https://github.com/dianisa)
 - Pembayaran - [Undissya Putri Maharani](https://github.com/UndissyaPutri)
-- Ambulance - [Kezia Natalia](https://github.com/kezianatalia)
 
 ## 👥 Persona 👥
 ### 🔒 User Yang Tidak Login 🔒
-User yang tidak login dapat : Cek daftar obat yang tersedia, Cek jadwal dokter pada, dan Cek ketersediaan ambulance
+User yang tidak login dapat : Mengecek daftar dokter yang ada serta ketersediaan obat
 
 ### 🔑 User Yang Sudah Login 🔑
 
 Dokter :
-Bisa update jadwal dokter, Mengakses menu pembayaran
+Dapat menambahkan dan mengganti jadwal ketersediaan dokter.
 
 Pasien :
-Bisa melakukan registrasi layanan dokter, operasi, konsultasi
+Dapat melakukan registrasi layanan dokter, menu operasi, konseling, serta menu pembayaran.
 
 Apoteker :
-Receive orderan obat
+Dapat menambahkan info obat yang tersedia dan dapat menerima pesanan obat yang dibuat oleh pasien
 
 Administrasi :
-Pembayaran dengan user
+Melakukan pembayaran dengan pasien
 
 [actions-badge]: https://github.com/UI-HealCast/UIHealCastF11/actions/workflows/dpl.yml/badge.svg
 [commits-gh]: https://github.com/UI-HealCast/UIHealCastF11/commits/main
