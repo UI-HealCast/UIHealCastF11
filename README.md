@@ -5,7 +5,6 @@
 > diselenggarakan oleh Fakultas Ilmu Komputer, Universitas Indonesia
 > pada Semester Gasal, Tahun Ajaran 2022/2023.
 
-## Nama App : UI HealCast
 ### Anggota Kelompok:
 <ul>
   <li>Dianisa Wulandari - 2106702150</li>
@@ -15,8 +14,9 @@
   <li>Yudi Putra Sabri - 2106706123</li>
 </ul>
 
+## 🌏 Situs Web 🌎
+Proyek ini dapat diakses di [uihealcast.herokuapp.com](https://uihealcast.herokuapp.com/).
 
-### Link Deployment: https://uihealcast.herokuapp.com/
 [![Test and Deploy][actions-badge]][commits-gh]
 ## Latar Belakang
 Arsitektur Kesehatan menjadi salah satu isu penting dalam Presidensi G20 Indonesia 2022. Fokus dari isu ini adalah mengenai kesiapan transformasi infrastruktur kesehatan global. Sejalan dengan tema presidensi G20 “Recover Together, Recover Stronger”, kontribusi melalui penguatan sistem kesehatan perlu ditingkatkan. Penguatan sistem yang inklusif dan responsif terhadap krisis dapat melalui sistem informasi.
