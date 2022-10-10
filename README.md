@@ -18,5 +18,5 @@ Permasalahan sulitnya mendapatkan informasi Kesehatan dengan cepat membawa kita 
 
 
 
-[actions-badge]: https://github.com/UI-HealCast/UIHealCastF11/actions/workflows/Test%20and%20Deploy/badge.svg
+[actions-badge]: https://github.com/UI-HealCast/UIHealCastF11/actions/workflows/dpl.yml/badge.svg
 [commits-gh]: https://github.com/UI-HealCast/UIHealCastF11/commits/main
