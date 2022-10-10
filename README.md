@@ -41,7 +41,7 @@ Dokter :
 Dapat menambahkan dan mengganti jadwal ketersediaan dokter.
 
 Pasien :
-Dapat melakukan registrasi layanan dokter, menu operasi, konseling, serta menu pembayaran.
+Dapat mengakses menu registrasi layanan dokter, menu operasi, konseling, serta menu pembayaran.
 
 Apoteker :
 Dapat menambahkan info obat yang tersedia dan dapat menerima pesanan obat yang dibuat oleh pasien
