@@ -1,4 +1,10 @@
-# Proyek Tengah Semester PBP Fasilkom UI Semester Gasal 2022/2023
+# UI HealCast
+
+> Proyek ini dibuat untuk memenuhi tugas Proyek Tengah Semester (PTS)
+> pada mata kuliah Pemrograman Berbasis Platform (CSGE602022) yang
+> diselenggarakan oleh Fakultas Ilmu Komputer, Universitas Indonesia
+> pada Semester Gasal, Tahun Ajaran 2022/2023.
+
 ## Nama App : UI HealCast
 ### Anggota Kelompok:
 <ul>
