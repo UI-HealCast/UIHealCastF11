@@ -25,13 +25,12 @@ Proyek ini dibuat oleh kelompok F11 yang beranggotakan sebagai berikut.
 
 ## 👥 Persona 👥
 ### 🔒 User Yang Tidak Login 🔒
-User yang tidak login dapat: Cek daftar obat yang tersedia, Cek jadwal dokter pada, dan Cek ketersediaan ambulance
+User yang tidak login dapat : Cek daftar obat yang tersedia, Cek jadwal dokter pada, dan Cek ketersediaan ambulance
 
 ### 🔑 User Yang Sudah Login 🔑
 
 Dokter :
-Bisa update jadwal dokter
-Mengakses menu pembayaran
+Bisa update jadwal dokter, Mengakses menu pembayaran
 
 Pasien :
 Bisa melakukan registrasi layanan dokter, operasi, konsultasi
