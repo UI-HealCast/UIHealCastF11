@@ -31,10 +31,6 @@ Cek jadwal dokter pada
 Cek ketersediaan ambulance
 
 ### 🔑 User Yang Sudah Login 🔑
-User yang sudah login dapat:
-Cek daftar obat yang tersedia 
-Cek jadwal dokter pada 
-Cek ketersediaan ambulance
 
 Dokter :
 Bisa update jadwal dokter
