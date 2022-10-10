@@ -7,14 +7,6 @@
 > diselenggarakan oleh Fakultas Ilmu Komputer, Universitas Indonesia
 > pada Semester Gasal, Tahun Ajaran 2022/2023.
 
-### Anggota Kelompok:
-<ul>
-  <li>Dianisa Wulandari - 2106702150</li>
-  <li>Kezia Natalia - 2106703891</li>
-  <li>Undissya Putri Maharani - 2106650935</li>
-  <li>Syahrul Apriansyah - 2106708311</li>
-  <li>Yudi Putra Sabri - 2106706123</li>
-</ul>
 
 ## 🌐 Situs Web 🌐
 Proyek ini dapat diakses di [uihealcast.herokuapp.com](https://uihealcast.herokuapp.com/).
@@ -31,7 +23,28 @@ Proyek ini dibuat oleh kelompok F11 yang beranggotakan sebagai berikut.
 - [Syahrul Apriansyah](https://github.com/SyahrulApr86) (2106708311)
 - [Yudi Putra Sabri](https://github.com/yudiptr) (2106706123)
 
+## 👥 Persona 👥
+### 🔒 User Yang Tidak Login 🔒
+User yang tidak login dapat:
+Cek daftar obat yang tersedia
+Cek jadwal dokter pada
+Cek ketersediaan ambulance
 
+### 🔑 User Yang Sudah Login 🔑
+User yang sudah login dapat:
+
+Dokter :
+Bisa update jadwal dokter
+Mengakses menu pembayaran
+
+Pasien :
+Bisa melakukan registrasi layanan dokter, operasi, konsultasi
+
+Apoteker :
+Receive orderan obat
+
+Administrasi :
+Pembayaran dengan user
 
 [actions-badge]: https://github.com/UI-HealCast/UIHealCastF11/actions/workflows/dpl.yml/badge.svg
 [commits-gh]: https://github.com/UI-HealCast/UIHealCastF11/commits/main
