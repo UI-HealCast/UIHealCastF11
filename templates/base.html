@@ -18,7 +18,7 @@
 
 <body class="bg-white font-sans leading-normal tracking-normal">
 
-  <nav class="flex items-center justify-between flex-wrap bg-yellow-300 p-3 fixed w-full z-10 top-0">
+  <nav class="flex items-center justify-between flex-wrap bg-yellow-300 p-1 fixed w-full z-10 top-0">
 		<div class="flex items-center flex-shrink-0 text-white mr-6">
 			<a class="text-white no-underline hover:text-white hover:no-underline" href="#">
 				<span class="text-2xl pl-2 text-gray-600 no-underline hover:text-gray-200 font-bold"><i class="em em-grinning"></i>UI Health Care</span>
@@ -34,7 +34,19 @@
 		<div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
 			<ul class="list-reset lg:flex justify-end flex-1 items-center">
 				<li class="mr-3">
-					<a class="inline-block py-2 px-4 text-gray-600 no-underline hover:text-gray-200 no-underline" href="#">Pelayanan</a>
+					<!-- <a class="inline-block py-2 px-4 text-gray-600 no-underline hover:text-gray-200 no-underline" href="#">Pelayanan</a> -->
+          <div class="">
+            <div class="flex items-center ">
+              <button class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4 rounded flex items-center" id="menu-btn">Pelayanan
+                <?xml version="1.0" ?><svg height="48" viewBox="0 0 48 48" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M14 20l10 10 10-10z"/><path d="M0 0h48v48h-48z" fill="none"/></svg>
+              </button>
+            </div>
+            <div class="bg-gray-200 hidden flex-col rounded mt-1 p-2 text-sm w-32 absolute" id="dropdown">
+                <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Dokter</a>
+                <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Operasi</a>
+                <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Konseling</a>
+            </div>
+          </div>
 				</li>
 				<li class="mr-3">
 					<a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Apotek</a>
@@ -47,7 +59,7 @@
 	</nav>
 
   <!--Container-->
-  <div class="mt-20 m-5 ">
+  <div class="mt-24 m-5 ">
     {% block content %}
     {% endblock content %}
   </div>
@@ -191,6 +203,24 @@
   document.getElementById('nav-toggle').onclick = function(){
     document.getElementById("nav-content").classList.toggle("hidden");
   }
+
+  window.addEventListener('DOMContentLoaded', ()=> {
+    const menuBtn = document.querySelector('#menu-btn')
+    const dropdown = document.querySelector('#dropdown')
+    
+    menuBtn.addEventListener('click', () => {
+        /* if(dropdown.classList.contains('hidden')){
+            dropdown.classList.remove('hidden');
+            dropdown.classList.add('flex');
+        }else{
+            dropdown.classList.remove('flex')
+            dropdown.classList.add('hidden')
+        } */
+
+        dropdown.classList.toggle('hidden')
+        dropdown.classList.toggle('flex')
+    })
+  })
 </script>
 
 {% block script %}
