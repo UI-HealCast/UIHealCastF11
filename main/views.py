@@ -1,4 +1,11 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
+import datetime
+from django.urls import reverse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.shortcuts import redirect
 
 def index(request):
     return render(request, 'index.html')
@@ -18,3 +25,16 @@ def login(request):
             messages.info(request, 'Username atau Password salah!')
     context = {}
     return render(request, 'login.html', context)
+
+def register(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Akun telah berhasil dibuat!')
+            return redirect('main:index')
+    
+    context = {'form':form}
+    return render(request, 'register.html', context)
