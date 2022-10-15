@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth import login as auth_login
 from django.http import HttpResponseRedirect
 import datetime
 from django.urls import reverse
@@ -8,6 +9,10 @@ from django.contrib import messages
 from django.shortcuts import redirect
 
 def index(request):
+    user = request.user
+    status = False
+    if (user):
+        status = True
     return render(request, 'index.html')
 
 
@@ -17,8 +22,8 @@ def login(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("todolist:show_todo")) # membuat response
+            auth_login(request, user) # melakukan login terlebih dahulu
+            response = HttpResponseRedirect(reverse("main:index")) # membuat response
             response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
             return response
         else:
