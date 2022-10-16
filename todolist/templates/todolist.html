@@ -1,0 +1,181 @@
+{% load static tailwind_tags %}
+{% tailwind_css %}
+
+<!-- Source Modal Tailwinds : https://hartdev-ctzyoepto-hudadamar21.vercel.app/source-code/tailwindcss-components/modal-with-animation/ -->
+<title>ToDo List</title>
+<div class=" bg-gray-300 min-h-screen w-fit">
+  <div class=" bg-orange-300 h-16 w-screen">
+    <div class="flex items-center h-16 p-8">
+      <p class=" font-bold text-black">Hello {{username}}</p>
+
+      <div class="p-3">
+        <div class="flex gap-5">
+          <button onclick="openModal(true)" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none">
+            Add New Task!
+          </button>
+          <div class=" bg-red-600 hover:bg-red-700 p-1 w-fit rounded-2xl">
+            <button class="p-1 text-white font-bold"><a href="{% url 'todolist:logout' %}">Logout</a></button>
+          </div>
+        </div>
+      </div>
+      <!-- overlay -->
+      <div id="modal_overlay" class="hidden absolute inset-0 bg-black bg-opacity-30 h-full w-screen flex justify-center items-center pt-10 md:pt-0">
+        <!-- modal -->
+        <div id="modal" class="opacity-0 transform -translate-y-full scale-150 relative h-fit bg-white w-10/12 rounded shadow-lg transition-opacity transition-transform duration-300">
+          <!-- button close -->
+          <button 
+          onclick="openModal(false)"
+            class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white">
+            &cross;
+          </button>
+          <!-- body -->
+          <div class="w-full p-3">
+            <div class="bg-slate-100 h-full p-4 flex flex-col">
+              <div class=" bg-slate-500 p-6 rounded-2xl flex justify-center items-center">
+                  <h1 class="font-bold text-3xl text-white">Create Todo List</h1>
+              </div>
+              
+              <div class="flex justify-center m-20">
+                  <div class=" bg-slate-900 bg-opacity-40 rounded-3xl w-fit p-8 ">  
+                      <form method="POST" action="" id="tembak_db">
+                          {% csrf_token %}
+                          <div class="">
+                              <table>
+                                  <tr>
+                                      <td>Todo:</td>
+                                      <td><input class="rounded-2xl" type="text" name="todo" placeholder="What's New?" class="form-control" id="nama"></td>
+                                  </tr>
+                                          
+                                  <tr>
+                                      <div class="flex gap-4">
+                                          <td>Description: </td>
+                                          <td><input class="rounded-2xl" type="text" name="description" placeholder="Description" class="form-control" id="desc"></td>
+                                      </div>
+          
+                                  </tr>
+                              </table>
+                          </div>
+                          
+                          <div class="flex gap-4 mt-4 justify-center">
+                              <div class="p-3 rounded-2xl w-fit cursor-pointer bg-orange-400 flex items-center">
+                                  <input class=" text-white text-lg font-bold" type="submit" name="submit" value="Create!"/>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex  justify-center justify-items-center bg-gray-300 h-fit mt-4 p-4">
+    <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-5 mt-8 sm:mt-5" id="todoCard">
+      
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  const modal_overlay = document.querySelector('#modal_overlay');
+  const modal = document.querySelector('#modal');
+  const nama = document.getElementById('nama');
+  const desc = document.getElementById('desc');
+
+  
+  function openModal (value){
+    const modalCl = modal.classList
+    const overlayCl = modal_overlay
+    if(value){
+      overlayCl.classList.remove('hidden')
+      setTimeout(() => {
+        modalCl.remove('opacity-0')
+        modalCl.remove('-translate-y-full')
+        modalCl.remove('scale-150')
+        nama.value = '';
+        desc.value = '';
+      }, 100);
+    } else {
+      modalCl.add('-translate-y-full')
+      setTimeout(() => {
+        modalCl.add('opacity-0')
+        modalCl.add('scale-150')
+      }, 100);
+      setTimeout(() => overlayCl.classList.add('hidden'), 300);
+    }
+  } 
+  
+  $(document).ready(function () {
+    loadData();
+  });
+
+
+  function delDB(val){
+    $.ajax({
+      type :"DELETE",
+      csrfmiddlewaretoken: "{{ csrf_token }}",
+      url :`/todolist/delete/${val}`,
+      success: function () {
+        $(`#${val}`).remove()
+      },
+    })
+  }
+
+  $(document).on("submit", "#tembak_db", function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "{% url 'todolist:add_ajax' %}",
+      data: {
+        nama: $("#nama").val(),
+        desc: $("#desc").val(),
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+      },
+      dataType: "json",
+      success: function () {
+        openModal(false)
+        loadData();
+      },
+    });
+  });
+
+  function loadData() {
+    let tab= "";
+    $.ajax({
+        url: "{% url 'todolist:show_json' %}",
+        type: "GET",
+        dataType: "json",
+        success: function(resp){  
+            for (let i of resp){
+                let status = i.fields.status ? "Finished" : "Not Yet";
+                tab +=`
+                <div id="${i.pk}" class="bg-white rounded-2xl p-8 flex flex-col gap-2 hover:drop-shadow-2xl transition duration-300 ease-in-out">
+                  <p class="text-center text-xl font-semibold">${i.fields.title}</p>
+                  <p class="text-center text-xs">${i.fields.date}</p>
+                  <div class="flex m-2 p-2 flex-col">
+                    <div class="transition-opacity bg-gray-600 bg-opacity-10 rounded-2xl p-2">
+                      <p class="break-all">${i.fields.description}</p>
+                      <p>
+                        ${status}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="w-full flex justify-center gap-2">
+                    <a href="change/${i.pk}"><button class=" bg-red-600 rounded-2xl p-2 text-white font-bold">Change Status</button></a>
+                    <button class="bg-green-500 rounded-2xl p-2 text-white font-bold delete" onclick="delDB(${i.pk})">Delete</button>
+                  </div>
+                </div>`
+              ;
+              $('#todoCard').html(tab);
+            }
+        },
+        error: function(resp){
+            console.log('Error?');
+        }
+    })
+  };
+
+</script>
+

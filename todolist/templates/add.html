@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Create New Todo List</title>
+{% endblock meta %}
+
+{% block content %}
+{% load static tailwind_tags %}
+{% tailwind_css %}
+<div class="bg-slate-100 h-screen p-8 flex flex-col">
+    <div class=" bg-slate-500 p-6 rounded-2xl flex justify-center items-center">
+        <h1 class="font-bold text-3xl text-white">Create Todo List</h1>
+    </div>
+    
+    <div class="flex justify-center m-20">
+        <div class=" bg-slate-900 bg-opacity-40 rounded-3xl w-fit p-8 ">  
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="">
+                    <table>
+                        <tr>
+                            <td>Todo:</td>
+                            <td><input class="rounded-2xl" type="text" name="todo" placeholder="What's New?" class="form-control"></td>
+                        </tr>
+                                
+                        <tr>
+                            <div class="flex gap-4">
+                                <td>Description: </td>
+                                <td><input class="rounded-2xl" type="text" name="description" placeholder="Description" class="form-control"></td>
+                            </div>
+
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="flex gap-4 mt-4 justify-center">
+                    <div class="p-3 rounded-2xl w-fit cursor-pointer bg-orange-400 flex items-center">
+                        <input class=" text-white text-lg font-bold" type="submit" name="submit" value="Create!"/>
+                    </div>
+                    <div class="p-3 rounded-2xl w-fit cursor-pointer bg-gray-900">
+                        <button class="p-1 text-white font-bold text-lg"><a href="../">Back</a></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
