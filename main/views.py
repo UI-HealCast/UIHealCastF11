@@ -13,7 +13,13 @@ def index(request):
     status = False
     if (user):
         status = True
-    return render(request, 'index.html')
+
+    context = {
+    'user': user.username,
+    'nama': 'Yudi Putra Sabri',
+    'npm': 2106706123,
+    }
+    return render(request, 'index.html', context)
 
 
 def login(request):
@@ -43,3 +49,9 @@ def register(request):
     
     context = {'form':form}
     return render(request, 'register.html', context)
+
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:index'))
+    response.delete_cookie('last_login')
+    return response
