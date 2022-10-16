@@ -10,10 +10,6 @@ from django.shortcuts import redirect
 
 def index(request):
     user = request.user
-    status = False
-    if (user):
-        status = True
-
     context = {
     'user': user.username,
     'nama': 'Yudi Putra Sabri',
