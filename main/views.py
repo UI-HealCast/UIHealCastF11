@@ -18,7 +18,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def login(request):
+def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
