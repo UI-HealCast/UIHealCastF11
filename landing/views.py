@@ -25,7 +25,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("main:index")) # membuat response
+            response = HttpResponseRedirect(reverse("landing:index")) # membuat response
             response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
             return response
         else:
@@ -48,6 +48,6 @@ def register(request):
 
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse('main:index'))
+    response = HttpResponseRedirect(reverse('landing:index'))
     response.delete_cookie('last_login')
     return response
