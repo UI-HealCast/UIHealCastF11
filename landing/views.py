@@ -10,20 +10,22 @@ from django.shortcuts import redirect
 
 def index(request):
     user = request.user
-    status = False
-    if (user):
-        status = True
-    return render(request, 'index.html')
+    context = {
+    'user': user.username,
+    'nama': 'Yudi Putra Sabri',
+    'npm': 2106706123,
+    }
+    return render(request, 'index.html', context)
 
 
-def login(request):
+def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("main:index")) # membuat response
+            response = HttpResponseRedirect(reverse("landing:index")) # membuat response
             response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
             return response
         else:
@@ -39,7 +41,13 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Akun telah berhasil dibuat!')
-            return redirect('main:index')
+            return redirect('landing:login')
     
     context = {'form':form}
     return render(request, 'register.html', context)
+
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('landing:index'))
+    response.delete_cookie('last_login')
+    return response

@@ -36,7 +36,7 @@
 					<!-- <a class="inline-block py-2 px-4 text-gray-600 no-underline hover:text-gray-200 no-underline" href="#">Pelayanan</a> -->
           <div class="">
             <div class="flex items-center ">
-              <button class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4 rounded flex items-center" id="menu-btn">Pelayanan
+              <button class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 rounded flex items-center" id="menu-btn">Pelayanan
                 <?xml version="1.0" ?><svg height="48" viewBox="0 0 48 48" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M14 20l10 10 10-10z"/><path d="M0 0h48v48h-48z" fill="none"/></svg>
               </button>
             </div>
@@ -55,8 +55,19 @@
 				</li>
         <li class="mr-3">
           <!-- pas udah masuk, didelete terus diganti tampilan -->
-					<a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" id="account" href="/login">Masuk</a>
-				</li>
+          {% if user == "" %}
+					  <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" id="account" href="/login">Masuk</a>
+          {% else %}
+            <div class="flex items-center ">
+              <button class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 rounded flex items-center" id="acc-btn">Hai, {{user}}!
+                <?xml version="1.0" ?><svg height="48" viewBox="0 0 48 48" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M14 20l10 10 10-10z"/><path d="M0 0h48v48h-48z" fill="none"/></svg>
+              </button>
+            </div>
+            <div class="bg-gray-200 hidden flex-col rounded mt-1 p-2 text-sm w-32 absolute" id="acc-dropdown">
+                <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Logout</a>
+            </div>
+          {% endif %}
+          </li>
 			</ul>
 		</div>
 	</nav>
@@ -216,6 +227,8 @@
   window.addEventListener('DOMContentLoaded', ()=> {
     const menuBtn = document.querySelector('#menu-btn')
     const dropdown = document.querySelector('#dropdown')
+    const accBtn = document.querySelector('#acc-btn')
+    const accdropdown = document.querySelector('#acc-dropdown')
     
     menuBtn.addEventListener('click', () => {
       /* if(dropdown.classList.contains('hidden')){
@@ -227,6 +240,18 @@
       } */
       dropdown.classList.toggle('hidden')
       dropdown.classList.toggle('flex')
+    })
+
+    accBtn.addEventListener('click', () => {
+      /* if(dropdown.classList.contains('hidden')){
+          dropdown.classList.remove('hidden');
+          dropdown.classList.add('flex');
+      }else{
+          dropdown.classList.remove('flex')
+          dropdown.classList.add('hidden')
+      } */
+      accdropdown.classList.toggle('hidden')
+      accdropdown.classList.toggle('flex')
     })
   })
 </script>
