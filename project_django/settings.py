@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'main',
     'django_browser_reload',
     'operasi',
-    'django_browser_reload'
 ]
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 TAILWIND_APP_NAME = 'theme'
