@@ -13,6 +13,54 @@
 
 
 {% block script %}
-<script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+  function getJadwal(){
+    $.ajax({
+      url: "operasi:jadwal_operasi_json",
+      method: "GET",
+      dataType: "json",
+      success: function(data){
+        var table = $('tableJadwal');
+        table.empty();
+        $(data).each(function(key, val){
+          table.append("<tr><td>"+val.dokter.username+"</td><td>"+
+            val.pasien.username+"</td><td>"+val.jenis+"</td><td>"+
+            val.tanggal+"</td><td>"+val.jam+"</td><td>"+
+            val.durasi+"</td><td>"+val.keterangan+"</td></tr>")
+        })
+      },
+      error: function(error){
+        alert(error);
+      }
+    })
+  }
+  
+  function addJadwal(){
+    var operasi = {}
+    operasi.pasien = $('#get_pasien').val();
+    operasi.jenis = $('#get_jenis').val();
+    operasi.tanggal = $('#get_tanggal').val();
+    operasi.jam = $('#get_jam').val();
+    operasi.durasi = $('#get_durasi').val();
+    operasi.keterangan = $('#get_keterangan').val();
+    var operasiJson = JSON.stringify(operasi);
+    $.ajax({
+      url: "operasi:add_jadwal_operasi",
+      method: "POST",
+      data: operasiJson,
+      contentType: 'application/json; charset = utf-8',
+      success: function(){
+        getJadwal();
+        alert('Jadwal operasi berhasil ditambahkan!');
+      },
+      error: function(error){
+        alert("Gagal menambahkan jadwal operasi!");
+      }
+      
+    })
+  }
+
+  getJadwal();
 </script>
 {% endblock script %}
