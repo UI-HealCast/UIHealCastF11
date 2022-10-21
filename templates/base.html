@@ -19,7 +19,7 @@
 
   <nav class="flex items-center justify-between flex-wrap bg-yellow-300 bg-opacity-75 p-1 fixed w-full z-10 top-0">
 		<div class="flex items-center flex-shrink-0 text-white mr-6">
-			<a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+			<a class="text-white no-underline hover:text-white hover:no-underline" href="{% url 'landing:index' %}">
 				<span class="text-2xl pl-2 text-gray-600 no-underline hover:text-gray-200 font-bold"></i>UI Health Care</span>
 			</a>
 		</div>
@@ -36,7 +36,7 @@
 					<!-- <a class="inline-block py-2 px-4 text-gray-600 no-underline hover:text-gray-200 no-underline" href="#">Pelayanan</a> -->
           <div class="">
             <div class="flex items-center ">
-              <button class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 rounded flex items-center" id="menu-btn">Pelayanan
+              <button class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline px-4 rounded flex items-center" id="menu-btn">Pelayanan
                 <?xml version="1.0" ?><svg height="48" viewBox="0 0 48 48" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M14 20l10 10 10-10z"/><path d="M0 0h48v48h-48z" fill="none"/></svg>
               </button>
             </div>
@@ -56,10 +56,10 @@
         <li class="mr-3">
           <!-- pas udah masuk, didelete terus diganti tampilan -->
           {% if user == "" %}
-					  <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" id="account" href="/login">Masuk</a>
+					  <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" id="account" href="{% url 'landing:login' %}">Masuk</a>
           {% else %}
             <div class="flex items-center ">
-              <button class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 rounded flex items-center" id="acc-btn">Hai, {{user}}!
+              <button class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline px-4 rounded flex items-center" id="acc-btn">Hai, {{user}}!
                 <?xml version="1.0" ?><svg height="48" viewBox="0 0 48 48" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M14 20l10 10 10-10z"/><path d="M0 0h48v48h-48z" fill="none"/></svg>
               </button>
             </div>
@@ -213,12 +213,6 @@
 </body>
 
 <script>
-  let name = false
-  if (name){
-    console.log(123)
-    document.getElementById("account").innerHTML = "asas";
-  };
-
   //Javascript to toggle the menu\
   document.getElementById('nav-toggle').onclick = function(){
     document.getElementById("nav-content").classList.toggle("hidden");

@@ -3,18 +3,61 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>Masuk</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   </head>
   <body>
     {% load static tailwind_tags %}
     {% tailwind_css %}
+    <nav class="flex items-center justify-between flex-wrap bg-yellow-300 bg-opacity-75 p-1 fixed w-full z-10 top-0">
+		<div class="flex items-center flex-shrink-0 text-white mr-6">
+			<a class="text-white no-underline hover:text-white hover:no-underline" href="{% url 'landing:index' %}">
+				<span class="text-2xl pl-2 text-gray-600 no-underline hover:text-gray-200 font-bold"></i>UI Health Care</span>
+			</a>
+		</div>
+
+		<div class="block lg:hidden">
+			<button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white">
+				<svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+			</button>
+		</div>
+
+		<div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
+			<ul class="list-reset lg:flex justify-end flex-1 items-center">
+				<li class="mr-3">
+					<!-- <a class="inline-block py-2 px-4 text-gray-600 no-underline hover:text-gray-200 no-underline" href="#">Pelayanan</a> -->
+          <div class="">
+            <div class="flex items-center ">
+              <button class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline px-4 rounded flex items-center" id="menu-btn">Pelayanan
+                <?xml version="1.0" ?><svg height="48" viewBox="0 0 48 48" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M14 20l10 10 10-10z"/><path d="M0 0h48v48h-48z" fill="none"/></svg>
+              </button>
+            </div>
+            <div class="bg-white hidden flex-col rounded mt-1 p-2 text-sm w-32 absolute" id="dropdown">
+                <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Dokter</a>
+                <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Operasi</a>
+                <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Konseling</a>
+            </div>
+          </div>
+				</li>
+				<li class="mr-3">
+					<a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Apotek</a>
+				</li>
+				<li class="mr-3">
+					<a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Pembayaran</a>
+				</li>
+                <li class="mr-3">
+                    <!-- pas udah masuk, didelete terus diganti tampilan -->
+			        <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" id="account" href="{% url 'landing:login' %}">Masuk</a>
+                </li>
+			</ul>
+		</div>
+	</nav>
     <div class=" bg-slate-200">
         <div class ="h-screen flex items-center justify-center shadow-2xl">
             <div class="">
-                <div class="rounded-4 bg-secondary p-5 mt">
+                <div class="rounded-4 bg-yellow-300 p-5 mt drop-shadow-2xl">
 
-                    <div class=" bg-orange-300 p-3 rounded-2xl w-full m-2 flex justify-center">
+                    <div class=" bg-black p-3 rounded-2xl w-full m-2 flex justify-center">
                         <h1 class="font-bold text-white">Login First!</h1>
                     </div>
 
@@ -42,22 +85,59 @@
                             {% endif %} 
                 
                             <tr>
-                                <div class=" bg-green-500 rounded-2xl m-2 p-2 w-full justify-center flex cursor-pointer">
-                                    <input class="cursor-pointer text-white font-bold font-monospace" type="submit" value="Login">
+                                <div class="justify-center flex cursor-pointer">
+                                    <div class="bg-white w-fit p-1 rounded-2xl">
+                                        <input class="cursor-pointer text-black text-xl font-bold" type="submit" value="Masuk">
+                                    </div>
                                 </div>
                             </tr>
                         </table>
                     </form>
                 
-                    <div class="flex justify-center bg-red-500 p-2 m-2 rounded-full w-full items-center gap-2">
-                        <p class="text-white">Belum mempunyai akun? 
-                        <div class="bg-white p-1 rounded-full cursor-pointer">
-                            <a class="font-bold" href="{% url 'landing:register' %}">Buat Akun</a>
+                    <div class="flex justify-center">
+                        <div class="rounded-full bg-red-500 p-1 m-2 w-fit cursor-pointer">
+                            <a class="text-white font-bold" href="{% url 'landing:register' %}">Buat Akun</a>
                         </div>
-                    </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script>
+//Javascript to toggle the menu\
+  document.getElementById('nav-toggle').onclick = function(){
+    document.getElementById("nav-content").classList.toggle("hidden");
+  }
+
+  window.addEventListener('DOMContentLoaded', ()=> {
+    const menuBtn = document.querySelector('#menu-btn')
+    const dropdown = document.querySelector('#dropdown')
+    const accBtn = document.querySelector('#acc-btn')
+    const accdropdown = document.querySelector('#acc-dropdown')
+    
+    menuBtn.addEventListener('click', () => {
+      /* if(dropdown.classList.contains('hidden')){
+          dropdown.classList.remove('hidden');
+          dropdown.classList.add('flex');
+      }else{
+          dropdown.classList.remove('flex')
+          dropdown.classList.add('hidden')
+      } */
+      dropdown.classList.toggle('hidden')
+      dropdown.classList.toggle('flex')
+    })
+
+    accBtn.addEventListener('click', () => {
+      /* if(dropdown.classList.contains('hidden')){
+          dropdown.classList.remove('hidden');
+          dropdown.classList.add('flex');
+      }else{
+          dropdown.classList.remove('flex')
+          dropdown.classList.add('hidden')
+      } */
+      accdropdown.classList.toggle('hidden')
+      accdropdown.classList.toggle('flex')
+    })
+  })
+</script>
