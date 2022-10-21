@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'landing',
     'tailwind',
     'theme',
-    'main',
     'django_browser_reload',
     'operasi',
 ]
