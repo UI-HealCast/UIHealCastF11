@@ -28,9 +28,10 @@ def add_jadwal_operasi(request):
     return render(request, 'jadwaloperasi.html')
 
 def jadwal_operasi_json(request):
-    user = request.user
-    if user.related_name == 'dokter':
-        data = Operasi.objects.filter(dokter = user)
-    else:
-        data = Operasi.objects.filter(pasien = user)
+    # user = request.user
+    # if user.related_name == 'dokter':
+    #     data = Operasi.objects.filter(dokter = user)
+    # else:
+    #     data = Operasi.objects.filter(pasien = user)
+    data = Operasi.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
