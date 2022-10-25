@@ -65,6 +65,13 @@
             </div>
             <div class="bg-gray-200 hidden flex-col rounded mt-1 p-2 text-sm w-32 absolute" id="acc-dropdown">
                 <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Logout</a>
+                {% if statDok %}
+                  <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Menu Pasien</a>
+                {% elif statApo %}
+                  <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Konfirmasi Obat</a>
+                {% elif statAdm %}
+                  <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Konfirmasi Pembayaran</a>
+                {% endif %}
             </div>
           {% endif %}
           </li>

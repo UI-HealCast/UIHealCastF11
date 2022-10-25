@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'landing',
     'tailwind',
     'theme',
+    'pelayananDokter',
     'django_browser_reload'
 ]
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"

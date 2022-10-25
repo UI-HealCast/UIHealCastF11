@@ -1,3 +1,5 @@
+import re
+from webbrowser import get
 from django.shortcuts import render
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
@@ -6,12 +8,28 @@ import datetime
 from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from landing.models import Landing
 from django.shortcuts import redirect
+from django.contrib.auth.models import User
 
 def index(request):
-    user = request.user
+    masuk = None
+    statusAdmin = False
+    statusApotek = False
+    statusDokter = False
+    statusPatient = False
+    if request.user.username != "":
+        masuk = getUser(request.user)
+        statusAdmin = isAdmin(masuk)
+        statusApotek = isApotek(masuk)
+        statusDokter = isDoctor(masuk)
+        statusPatient = isPatient(masuk)
     context = {
-    'user': user.username,
+    'statPat' : statusPatient,
+    'statDok' : statusDokter,
+    'statApo' : statusApotek,
+    'statAdm' : statusAdmin,
+    'user': request.user.username,
     'nama': 'Yudi Putra Sabri',
     'npm': 2106706123,
     }
@@ -37,10 +55,13 @@ def register(request):
     form = UserCreationForm()
 
     if request.method == "POST":
+        uname = request.POST.get('username')
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Akun telah berhasil dibuat!')
+            getUs = User.objects.get(username=uname)
+            Landing.objects.create(user=getUs, is_patient=True)
             return redirect('landing:login')
     
     context = {'form':form}
@@ -51,3 +72,22 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('landing:index'))
     response.delete_cookie('last_login')
     return response
+
+def isPatient(masuk):
+    if masuk.is_patient:
+        return True
+
+def isDoctor(masuk):
+    if masuk.is_doctor:
+        return True
+
+def isApotek(masuk):
+    if masuk.is_apotek:
+        return True
+
+def isAdmin(masuk):
+    if masuk.is_admin:
+        return True
+
+def getUser(test):
+    return Landing.objects.get(user=test.pk)
