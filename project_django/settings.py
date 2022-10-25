@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'landing',
     'tailwind',
-    'theme',
     'pelayananDokter',
+    'theme',
     'django_browser_reload'
 ]
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
