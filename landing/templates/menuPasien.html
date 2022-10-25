@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Menu Pasien</title>
+{% endblock meta %}
+
+{% block content %}
+<div class=" p-4 bg-gray-300 h-fit rounded-2xl my-2">
+    <p class="font-bold text-2xl">Layanan Dokter</p class="font-bold text-2xl">
+    <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-5 mt-8 sm:mt-5" id="listPat">
+    </div>
+</div>
+
+<div class=" p-4 bg-gray-300 h-fit rounded-2xl ">
+    <p class="font-bold text-2xl">Layanan Konseling</p class="font-bold text-2xl">
+    <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-5 mt-8 sm:mt-5" id="listPat">
+    </div>
+</div>
+
+{% endblock content %}
+
+
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function loadData() {
+        let tab= "";
+        $.ajax({
+            url: "{% url 'landing:listPasien' %}",
+            type: "GET",
+            dataType: "json",
+            success: function(resp){  
+                for (let i of resp){
+                    console.log(i.pk);
+                    let status = i.fields.status;
+                    let type = i.pk;
+
+                    if (!status){
+                        tab +=`
+                        <a href="/menu-pasien/edit/${type}">
+                        <div class="" id="${i.pk}div" onClick=showData(${i.pk})>
+                            <div id="${i.pk}" class="bg-white rounded-2xl p-8 flex flex-col gap-2 hover:drop-shadow-2xl transition duration-300 ease-in-out">
+                                <p class="text-center text-xl font-semibold">${i.fields.username}</p>
+                                <p class="text-center text-xs">${i.fields.tanggal_janji.slice(0,10)} ${i.fields.tanggal_janji.slice(11,19)} </p>
+                                <div class="flex m-2 p-2 flex-col">
+                                    <div class="transition-opacity bg-gray-600 bg-opacity-10 rounded-2xl p-2">
+                                    <p class="break-all">${i.fields.keluhan}</p>
+                                    </div>
+                                    <p class="break-all">${i.fields.noHP}</p>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                        `
+                    }
+                    
+                ;
+                $('#listPat').html(tab);
+                }
+            },
+            error: function(resp){
+                console.log('Error?');
+            }
+        })
+    };
+
+    function showData(data){
+        console.log('adasas')
+    };
+
+    $(document).ready(function () {
+        console.log(123)
+        loadData();
+    });
+
+</script>
+{% endblock script %}
+
