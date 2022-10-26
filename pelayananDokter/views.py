@@ -15,7 +15,7 @@ def addKeluhan(request):
     
     # create object of form
     form = LayanForm()
-    form.fields["dokter"].queryset = Landing.objects.filter(is_doctor=True)
+    form.fields["dokter"].queryset = Landing.objects.filter(is_doctor=True,doctorReady=True)
 
     data = Landing.objects.get(user=request.user)
     statusAdmin = False
