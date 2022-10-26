@@ -117,6 +117,7 @@ def menu_pasien(request):
             'statDok' : statusDokter,
             'statApo' : statusApotek,
             'statAdm' : statusAdmin,
+            'ready' : data.doctorReady,
         }
         return render(request, 'menuPasien.html', context)
     else:
