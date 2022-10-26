@@ -1,3 +1,5 @@
+from datetime import datetime
+from email.policy import default
 from statistics import mode
 from django.db import models
 from django.contrib.auth.models import User
@@ -11,11 +13,9 @@ class Layan(models.Model):
     dokter = models.ForeignKey(
         Landing, on_delete=models.CASCADE, null=True, blank=True, related_name = "dokter")
 
-    keluhan = models.CharField(max_length=255)
-
-    nama = models.CharField(max_length=60)
-
-    tanggal_janji = models.DateTimeField()
+    keluhan = models.CharField(max_length=300) 
+    
+    tanggal_janji = models.DateTimeField(default = datetime.now)
     
     noHP = models.CharField(max_length=12)
 
