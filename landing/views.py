@@ -97,7 +97,7 @@ def getUser(test):
     return Landing.objects.get(user=test.pk)
 
 def list_pasien(request):
-    data = Layan.objects.all()
+    data = Layan.objects.filter(hasilPeriksa="-")
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
 
 @login_required(login_url='../../login/')
@@ -145,10 +145,7 @@ def edit_pasien(request, pk):
             'pasien'  : dataPasien,
             'masuk' : pk,
         }
-    
-    if request.method == 'POST':
-        desc = request.POST.get('hasil')
-        print(desc)
+
     return render(request, 'editPasien.html', context)
 
 
@@ -168,4 +165,14 @@ def change_status(request):
         task = Landing.objects.get(user=request.user)
         task.doctorReady = not (task.doctorReady)
         task.save()
+        return JsonResponse({"instance": "Proyek Dibuat"},status=200)
+
+@csrf_exempt
+def modif_hasil(request):
+    if request.method == 'POST':
+        desc = request.POST.get('hasil')
+        data = Landing.objects.get(user=request.user)
+        dataMasuk = Layan.objects.get(user=data)
+        dataMasuk.hasilPeriksa = desc
+        dataMasuk.save()
         return JsonResponse({"instance": "Proyek Dibuat"},status=200)
