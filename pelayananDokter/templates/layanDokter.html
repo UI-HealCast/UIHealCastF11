@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Pelayanan Dokter</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="h-screen rounded-2xl bg-gray-300 bg-op w-full p-2 ">
+  <div class="flex justify-center h-full items-center">
+  <form class="form-curhat" action="" method="POST" id="tembak_db">
+    {% csrf_token %}
+    <div class="flex justify-center">
+      <div class=" bg-yellow-300 p-3 rounded-2xl">
+        <div class="flex flex-col">
+          <p class="flex justify-center">Pilih Dokter</p>
+          {{form.dokter}}
+        </div>
+        <div>
+          <p class="flex justify-center">Isi Keluhan</p>
+          {{form.keluhan}}
+        </div>
+        <div class="flex flex-col">
+          <p class="flex justify-center">Nomor Telepon</p>
+          {{form.noHP}}
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center">
+    <input class="p-2 m-2 bg-green-300 rounded-2xl " type="submit" value="Submit" class="button">
+    </div>
+  </form>
+  </div>
+</div>
+{% endblock content %}
+
+
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).on("submit", "#tembak_db", function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "{% url 'pelayananDokter:tembakKeluhan' %}",
+      data: {
+        dokter: $("#id_dokter").find(":selected").val(),
+        keluhan: $("#id_keluhan").val(),
+        noHP: $("#id_noHP").val(),
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+      },
+      dataType: "json",
+      success: function () {
+        alert("Data berhasil ditambahkan")
+        window.location.href = "{% url 'pelayananDokter:addKeluhan' %}";
+      },
+    });
+  });
+</script>
+{% endblock script %}

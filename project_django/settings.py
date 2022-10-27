@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'landing',
     'tailwind',
+    'pelayananDokter',
     'theme',
     'django_browser_reload',
     'operasi',

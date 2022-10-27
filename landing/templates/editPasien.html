@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Hello, world!</title>
+{% endblock meta %}
+
+{% block content %}
+<p class="hidden" id="identifier">{{masuk}}</p>
+<div class=" p-4 bg-gray-300 h-fit rounded-2xl my-2">
+    <div class=""" id="inside">
+    </div>
+</div>
+{% endblock content %}
+
+
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    let peka = $('#identifier').text();
+
+    function loadData() {
+        let tab= "";
+        $.ajax({
+            url: `/show-pasien/${peka}`,
+            type: "GET",
+            dataType: "json",
+            success: function(resp){  
+                for (let i of resp){
+                    let status = i.fields.status;
+                    let type = i.pk;
+
+                    if (!status){
+                        tab +=`
+                        <div class="" id="${i.pk}div" onClick=showData(${i.pk})>
+                            <div id="${i.pk}" class="bg-white rounded-2xl p-8 flex w-fit flex-col gap-2 hover:drop-shadow-2xl transition duration-300 ease-in-out">
+                                <p class="text-center text-xl font-semibold">${i.fields.username}</p>
+                                <p class="text-center text-xs">${i.fields.tanggal_janji.slice(0,10)} ${i.fields.tanggal_janji.slice(11,19)} </p>
+                                <div class="flex m-2 p-2 justify-center">
+                                    <div>
+                                        <div class="transition-opacity bg-gray-600 bg-opacity-10 rounded-2xl p-2">
+                                        <p class="break-all">${i.fields.keluhan}</p>
+                                        </div>
+                                        <p class="break-all flex justify-center">${i.fields.noHP}</p>
+                                    </div>
+                                </div>
+
+                                <form method="post" id="tembakDB">
+                                    {% csrf_token %}
+                                    <div class="">
+                                        <table>
+                                                <div class="flex gap-4">
+                                                    <tr>Hasil Periksa: </tr>
+                                                    <tr><input class="rounded-2xl border-2 border-black" style="width: 100%;height: 60px;" type="text" name="hasil" placeholder="Hasil Pemeriksaan" class="form-control" id="hasil"></tr>
+                                                </div>
+                    
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="flex gap-4 mt-4 justify-center">
+                                            <input class=" bg-yellow-300 rounded-2xl p-1 text-black text-lg font-bold" type="submit" name="submit" value="Kirim!"/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        `
+                    }
+                    
+                ;
+                $('#inside').html(tab);
+                }
+            },
+            error: function(resp){
+                console.log('Error?');
+            }
+        })
+    };
+
+    $(document).ready(function () {
+        loadData();
+    });
+</script>
+{% endblock script %}

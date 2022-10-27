@@ -41,7 +41,7 @@
               </button>
             </div>
             <div class="bg-gray-200 hidden flex-col rounded mt-1 p-2 text-sm w-32 absolute" id="dropdown">
-                <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Dokter</a>
+                <a href="{% url 'pelayananDokter:addKeluhan' %}"" class="px-2 py-1 hover:bg-blue-300 rounded">Dokter</a>
                 <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Operasi</a>
                 <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Konseling</a>
             </div>
@@ -64,14 +64,17 @@
               </button>
             </div>
             <div class="bg-gray-200 hidden flex-col rounded mt-1 p-2 text-sm w-32 absolute" id="acc-dropdown">
-                <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Logout</a>
                 {% if statDok %}
-                  <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Menu Pasien</a>
-                {% elif statApo %}
+                  <a href="{% url 'landing:menuPasien' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Menu Pasien</a>
+                {% endif %}
+                {% if statApo %}
                   <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Konfirmasi Obat</a>
-                {% elif statAdm %}
+                {% endif %}
+                {% if statAdm %}
                   <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Konfirmasi Pembayaran</a>
                 {% endif %}
+
+                <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Logout</a>
             </div>
           {% endif %}
           </li>
@@ -80,12 +83,10 @@
 	</nav>
 
   <!--Container-->
-  <div class="mt-24 m-5 ">
+  <div class="mt-20 m-5 ">
     {% block content %}
     {% endblock content %}
   </div>
-
-
 
   <!-- start footer -->
   <footer class="shadow-lg m-5 rounded-2xl w-fit relative bottom-0 bg-yellow-300 text-white px-4 sm:px-8  py-6 lg:py-12">
@@ -232,25 +233,11 @@
     const accdropdown = document.querySelector('#acc-dropdown')
     
     menuBtn.addEventListener('click', () => {
-      /* if(dropdown.classList.contains('hidden')){
-          dropdown.classList.remove('hidden');
-          dropdown.classList.add('flex');
-      }else{
-          dropdown.classList.remove('flex')
-          dropdown.classList.add('hidden')
-      } */
       dropdown.classList.toggle('hidden')
       dropdown.classList.toggle('flex')
     })
 
     accBtn.addEventListener('click', () => {
-      /* if(dropdown.classList.contains('hidden')){
-          dropdown.classList.remove('hidden');
-          dropdown.classList.add('flex');
-      }else{
-          dropdown.classList.remove('flex')
-          dropdown.classList.add('hidden')
-      } */
       accdropdown.classList.toggle('hidden')
       accdropdown.classList.toggle('flex')
     })

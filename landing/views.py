@@ -1,5 +1,3 @@
-import re
-from webbrowser import get
 from django.shortcuts import render
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
@@ -11,6 +9,11 @@ from django.contrib import messages
 from landing.models import Landing
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
+from pelayananDokter.models import Layan
+from django.core import serializers
+from django.http.response import JsonResponse, HttpResponse, HttpResponseNotFound
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     masuk = None
@@ -61,7 +64,7 @@ def register(request):
             form.save()
             messages.success(request, 'Akun telah berhasil dibuat!')
             getUs = User.objects.get(username=uname)
-            Landing.objects.create(user=getUs, is_patient=True)
+            Landing.objects.create(user=getUs, is_patient=True, username=getUs.username)
             return redirect('landing:login')
     
     context = {'form':form}
@@ -91,3 +94,63 @@ def isAdmin(masuk):
 
 def getUser(test):
     return Landing.objects.get(user=test.pk)
+
+def list_pasien(request):
+    data = Layan.objects.all()
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+@login_required(login_url='../../login/')
+def menu_pasien(request):
+    data = Landing.objects.get(user=request.user)
+    if data.is_doctor:
+        statusAdmin = False
+        statusApotek = False
+        statusDokter = False
+        statusPatient = False
+        if request.user.username != "":
+            statusAdmin = isAdmin(data)
+            statusApotek = isApotek(data)
+            statusDokter = isDoctor(data)
+            statusPatient = isPatient(data)
+        context = {
+            'statPat' : statusPatient,
+            'statDok' : statusDokter,
+            'statApo' : statusApotek,
+            'statAdm' : statusAdmin,
+            'ready' : data.doctorReady,
+        }
+        return render(request, 'menuPasien.html', context)
+    else:
+        return HttpResponseNotFound("You Don't Belong Here")  
+
+def edit_pasien(request, pk):
+    data = Landing.objects.get(user=request.user)
+    dataPasien = Landing.objects.filter(pk=pk)
+    if data.is_doctor:
+        statusAdmin = False
+        statusApotek = False
+        statusDokter = False
+        statusPatient = False
+        if request.user.username != "":
+            statusAdmin = isAdmin(data)
+            statusApotek = isApotek(data)
+            statusDokter = isDoctor(data)
+            statusPatient = isPatient(data)
+        context = {
+            'statPat' : statusPatient,
+            'statDok' : statusDokter,
+            'statApo' : statusApotek,
+            'statAdm' : statusAdmin,
+            'pasien'  : dataPasien,
+            'masuk' : pk,
+        }
+    
+    if request.method == 'POST':
+        desc = request.POST.get('hasil')
+        print(desc)
+    return render(request, 'editPasien.html', context)
+
+
+def show_pasien(request, pk):
+    data = Layan.objects.filter(pk=pk)
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
