@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from landing.models import Landing
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from pelayananDokter.models import Layan
@@ -154,3 +155,17 @@ def edit_pasien(request, pk):
 def show_pasien(request, pk):
     data = Layan.objects.filter(pk=pk)
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+
+def show_dokter(request):
+    data = Landing.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+
+@csrf_exempt
+def change_status(request):
+     if request.method == "PATCH":
+        task = Landing.objects.get(user=request.user)
+        task.doctorReady = not (task.doctorReady)
+        task.save()
+        return JsonResponse({"instance": "Proyek Dibuat"},status=200)
