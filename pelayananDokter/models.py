@@ -21,3 +21,5 @@ class Layan(models.Model):
     username = models.CharField(max_length=30, default='-')
 
     hasilPeriksa = models.CharField(max_length=150, default='-')
+    
+    statusObat = models.BooleanField(null=True, blank=True, default=False)
