@@ -13,9 +13,6 @@
 {% block script %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-  async function getJadwal(){
-
-  }
   function getJadwal(){
     $.ajax({
       url: "{% url 'operasi:jadwal_operasi_json' %}",
@@ -25,8 +22,9 @@
         var table = $('#tableJadwal');
         table.empty();
         if (data == '') {
-          table.append("Tidak ada jadwal operasi!");
+          table.append("<p>Tidak ada jadwal operasi!</p>");
         } else {
+          console.log("ada");
           table.append("<table class='table-auto'><thead><tr><th>Dokter</th>"+
             "<th>Pasien</th><th>Jenis</th><th>Tanggal</th>"+
             "<th>Jam</th><th>Durasi</th><th>Keterangan</th>"+
@@ -70,7 +68,6 @@
       
     })
   }
-
   getJadwal();
 </script>
 {% endblock script %}

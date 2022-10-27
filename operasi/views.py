@@ -2,7 +2,7 @@ from django.shortcuts import render
 from operasi.models import Operasi
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
-from landing.views import getUser, isDoctor, isPatient
+from landing.models import Landing
 
 # Create your views here.
 def show_jadwal_operasi(request):
@@ -29,9 +29,9 @@ def add_jadwal_operasi(request):
     return render(request, 'jadwaloperasi.html')
 
 def jadwal_operasi_json(request):
-    user = getUser(request.user)
-    if isDoctor(user):
-        data = Operasi.objects.filter(dokter = request.user)
-    elif isPatient(user):
-        data = Operasi.objects.filter(pasien = request.user)
+    userLogin = Landing.objects.get(user=request.user)
+    if userLogin.is_doctor:
+        data = Operasi.objects.filter(dokter = userLogin)
+    elif userLogin.is_patient:
+        data = Operasi.objects.filter(pasien = userLogin)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
