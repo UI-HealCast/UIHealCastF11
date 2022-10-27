@@ -4,10 +4,12 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.http.response import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 
 from pelayananDokter.models import Layan
 from landing.models import Landing
 from pelayananDokter.forms import LayanForm
+
 # Create your views here.
 
 @csrf_exempt
@@ -52,6 +54,12 @@ def isAdmin(masuk):
     if masuk.is_admin:
         return True
 
+
+def show_log(request):
+    user = request.user
+    data = Layan.objects.filter(user = Landing.objects.get(user=user))
+    print(data)
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
 
 @csrf_exempt
 def tembakKeluhan(request):
