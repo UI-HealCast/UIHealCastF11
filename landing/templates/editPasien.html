@@ -32,7 +32,7 @@
 
                     if (!status){
                         tab +=`
-                        <div class="" id="${i.pk}div" onClick=showData(${i.pk})>
+                        <div class="" id="${i.pk}div">
                             <div id="${i.pk}" class="bg-white rounded-2xl p-8 flex w-fit flex-col gap-2 hover:drop-shadow-2xl transition duration-300 ease-in-out">
                                 <p class="text-center text-xl font-semibold">${i.fields.username}</p>
                                 <p class="text-center text-xs">${i.fields.tanggal_janji.slice(0,10)} ${i.fields.tanggal_janji.slice(11,19)} </p>
@@ -79,5 +79,22 @@
     $(document).ready(function () {
         loadData();
     });
+
+
+    $(document).on("submit", "#tembakDB", function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "{% url 'landing:modifHasil' %}",
+      data: {
+        hasil: $("#hasil").val(),
+      },
+      dataType: "json",
+      success: function () {
+        alert("Data berhasil ditambahkan");
+        window.location.href = "{% url 'landing:menuPasien' %}";
+      },
+    });
+  });
 </script>
 {% endblock script %}

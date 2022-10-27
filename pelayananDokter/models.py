@@ -1,8 +1,5 @@
 from datetime import datetime
-from email.policy import default
-from statistics import mode
 from django.db import models
-from django.contrib.auth.models import User
 from landing.models import Landing
 # Create your models here.
 
