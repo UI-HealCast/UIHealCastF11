@@ -176,5 +176,6 @@ def modif_hasil(request):
         print(peka)
         dataMasuk = Layan.objects.get(pk=peka)
         dataMasuk.hasilPeriksa = desc
+        dataMasuk.status = not dataMasuk.status
         dataMasuk.save()
         return JsonResponse({"instance": "Proyek Dibuat"},status=200)
