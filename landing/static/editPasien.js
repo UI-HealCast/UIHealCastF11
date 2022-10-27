@@ -16,7 +16,8 @@ $.ajax({
   success: function () {
 
     alert("Data berhasil ditambahkan");
-    window.location.href = "/menu-pasien/";
+    document.location.href = '/menu-pasien'
+
   },
 });
 });
