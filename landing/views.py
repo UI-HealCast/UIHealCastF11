@@ -170,9 +170,12 @@ def change_status(request):
 @csrf_exempt
 def modif_hasil(request):
     if request.method == 'POST':
+        print(12321)
         desc = request.POST.get('hasil')
-        data = Landing.objects.get(user=request.user)
-        dataMasuk = Layan.objects.get(user=data)
+        peka = request.POST.get('peka')
+        print(peka)
+        dataMasuk = Layan.objects.get(pk=peka)
         dataMasuk.hasilPeriksa = desc
+        dataMasuk.status = not dataMasuk.status
         dataMasuk.save()
         return JsonResponse({"instance": "Proyek Dibuat"},status=200)

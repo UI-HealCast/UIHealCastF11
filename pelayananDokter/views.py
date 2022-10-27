@@ -58,7 +58,6 @@ def isAdmin(masuk):
 def show_log(request):
     user = request.user
     data = Layan.objects.filter(user = Landing.objects.get(user=user))
-    print(data)
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
 
 @csrf_exempt
