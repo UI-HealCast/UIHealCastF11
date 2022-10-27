@@ -14,7 +14,7 @@ function loadData() {
                 if (!status){
                     tab +=`
                     <a href="/menu-pasien/edit/${type}">
-                    <div class="" id="${i.pk}div" onClick=showData(${i.pk})>
+                    <div class="" id="${i.pk}div">
                         <div id="${i.pk}" class="bg-white rounded-2xl p-8 flex flex-col gap-2 hover:drop-shadow-2xl transition duration-300 ease-in-out">
                             <p class="text-center text-xl font-semibold">${i.fields.username}</p>
                             <p class="text-center text-xs">${i.fields.tanggal_janji.slice(0,10)} ${i.fields.tanggal_janji.slice(11,19)} </p>
