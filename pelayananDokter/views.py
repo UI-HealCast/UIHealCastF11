@@ -11,7 +11,7 @@ from landing.models import Landing
 from pelayananDokter.forms import LayanForm
 
 # Create your views here.
-
+@login_required(login_url='../../login/')
 @csrf_exempt
 def addKeluhan(request):
     
@@ -54,7 +54,7 @@ def isAdmin(masuk):
     if masuk.is_admin:
         return True
 
-
+@login_required(login_url='../../login/')
 def show_log(request):
     user = request.user
     data = Layan.objects.filter(user = Landing.objects.get(user=user))
@@ -68,7 +68,6 @@ def tembakKeluhan(request):
         dokterVal = request.POST.get('dokter')
         dokter = Landing.objects.get(pk=int(dokterVal))
         keluhan = request.POST.get('keluhan')
-        print(keluhan, 12312)
         noHP = request.POST.get('noHP')
         username = request.user.username
         status = False

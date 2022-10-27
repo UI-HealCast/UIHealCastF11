@@ -66,7 +66,6 @@ function changeStatus(){
         url: "/change-status/",
         type: 'PATCH',
         success: function (data) {
-            console.log("Update berhasil");
             getDokter();
         }
     });

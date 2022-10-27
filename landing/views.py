@@ -97,9 +97,13 @@ def getUser(test):
     return Landing.objects.get(user=test.pk)
 
 def list_pasien(request):
-    data = Layan.objects.filter(hasilPeriksa="-")
-    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
-
+    data = Landing.objects.get(user=request.user)
+    if data.is_doctor:
+        data = Layan.objects.filter(hasilPeriksa="-")
+        return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+    else:
+        return HttpResponseNotFound("You Don't Belong Here")
+        
 @login_required(login_url='../../login/')
 def menu_pasien(request):
     data = Landing.objects.get(user=request.user)
@@ -145,19 +149,19 @@ def edit_pasien(request, pk):
             'pasien'  : dataPasien,
             'masuk' : pk,
         }
-
     return render(request, 'editPasien.html', context)
 
-
 def show_pasien(request, pk):
-    data = Layan.objects.filter(pk=pk)
-    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
-
+    data = Landing.objects.get(user=request.user)
+    if data.is_doctor:
+        data = Layan.objects.filter(pk=pk)
+        return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+    else:
+        return HttpResponseNotFound("You Don't Belong Here")  
 
 def show_dokter(request):
     data = Landing.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
-
 
 @csrf_exempt
 def change_status(request):
