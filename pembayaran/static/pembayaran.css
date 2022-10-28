@@ -1,0 +1,62 @@
+.pembayaran{
+    justify-content: center;
+    text-align: center;
+    padding-left: 15px;
+}
+
+.checkoutform label{
+    font-size: 14px !important;
+    font-weight: 600;
+}
+
+.checkoutform input{
+    font-size: 16px !important;
+    padding: 20px;
+}
+
+.heading{
+    padding-left: 10px;
+    font-size: 30px !important;
+    font-weight: 700;
+}
+
+#data{
+    text-align: justify;
+    margin-bottom: 10px;
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+label{
+    display: inline-block;
+    width: 400px;
+}
+
+input[type=text], input[type=email]{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-control{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#table{
+    text-align: center;
+    justify-content: center;
+    display: inline-block;
+    border-collapse: collapse;
+    margin: 25px 0;
+    /* font-size: 0.9em; */
+    /* min-width: 400px; */
+}
+
+.thead{
+    background-color: #FCD34D;
+    text-align: center;
+}
