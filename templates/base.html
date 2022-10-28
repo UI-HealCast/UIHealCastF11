@@ -1,20 +1,35 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
+<!-- Source nav and landing page : https://www.tailwindtoolbox.com/templates/hero-product -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  {% load tailwind_tags %}
-  {% tailwind_css %}
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content="name">
+  <meta name="description" content="description here">
+	<meta name="keywords" content="keywords,here">
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
   {% block meta %}
   {% endblock meta %}
 </head>
 
-<body>
-  {% block content %}
-  {% endblock content %}
+
+<body class="bg-white font-sans leading-normal tracking-normal">
+  {% include "navbar.html" %}
+  <!--Container-->
+  <div class="mt-20 m-5 ">
+    {% block content %}
+    {% endblock content %}
+  </div>
+
+  <!-- start footer -->
+  {% include "footer.html" %}
 </body>
+
+<script src="{% static '/base.js' %}"></script>
+
+{% block script %}
+{% endblock script %}
 
 </html>

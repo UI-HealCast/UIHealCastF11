@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Menu Pasien</title>
+<link rel="stylesheet" href="{% static '/slider.css' %}" />
+{% endblock meta %}
+
+{% block content %}
+<div class=" p-4 bg-gray-300 h-fit rounded-2xl ">
+    <p class="font-bold text-2xl">Ketersediaan Dokter</p class="font-bold text-2xl">
+    <div class="w-1/4">
+        <label class="toggle m-2">
+            <input type="checkbox"  id="checkedDokter"/>
+            <span onclick="changeStatus()" class="slider round"></span>
+            <span class="onoff"></span>
+        </label>
+    </div>
+</div>
+
+
+<div class=" p-4 bg-gray-300 h-fit rounded-2xl my-2">
+    <p class="font-bold text-2xl">Layanan Dokter</p class="font-bold text-2xl">
+    <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-5 mt-8 sm:mt-5" id="listPat">
+    </div>
+</div>
+
+<div class=" p-4 bg-gray-300 h-fit rounded-2xl ">
+    <p class="font-bold text-2xl">Layanan Konseling</p class="font-bold text-2xl">
+    <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-5 mt-8 sm:mt-5" id="listPat">
+    </div>
+</div>
+
+{% endblock content %}
+
+
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static '/menuPasien.js' %}"></script>
+
+{% endblock script %}
+

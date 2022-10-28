@@ -1,0 +1,91 @@
+{% load static tailwind_tags %}
+{% tailwind_css %}
+{% load static %}
+<title>Registrasi Akun</title>
+<div class="">
+  {% include "navbarMod.html" %}
+  <div class="flex justify-center mt-[15%]">
+    <div class=" bg-yellow-300 rounded-2xl p-3">
+      <div class="text-4xl font-bold text-black text-center">Register</div>
+      <div class="lg:w-64 mt-6">
+        <form method="POST" action="">
+          {% csrf_token %}
+          <div>
+            <label class="block">
+              <span
+                class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-500"
+              >
+                {{ form.username.label }}
+              </span>
+              <input
+                type="text"
+                name="username"
+                class="mt-1 px-3 py-2 bg-[#2d3748] border shadow-sm border-slate-600 placeholder-slate-400 focus:outline-none focus:border-[#4a9ebd] focus:ring-[#4a9ebd] block w-full rounded-md sm:text-sm focus:ring-1 text-slate-300"
+                placeholder="Username"
+              />
+              {% if form.username.errors %}
+              <div class="mt-2 text-red-500 text-sm">
+                {{form.username.errors }}
+              </div>
+              {% endif %}
+            </label>
+            <label class="block mt-1">
+              <span
+                class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-500"
+              >
+                {{ form.password1.label }}
+              </span>
+              <input
+                type="password"
+                name="password1"
+                class="mt-1 px-3 py-2 bg-[#2d3748] border shadow-sm border-slate-600 placeholder-slate-400 focus:outline-none focus:border-[#4a9ebd] focus:ring-[#4a9ebd] block w-full rounded-md sm:text-sm focus:ring-1 text-slate-300"
+                placeholder="Password"
+              />
+              {% if form.password1.errors %}
+              <div class="mt-2 text-red-500 text-sm">
+                {{form.password1.errors}}
+              </div>
+              {% endif %}
+            </label>
+
+            <label class="block mt-1">
+              <span
+                class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-500"
+              >
+                {{ form.password2.label }}
+              </span>
+              <input
+                type="password"
+                name="password2"
+                class="mt-1 px-3 py-2 bg-[#2d3748] border shadow-sm border-slate-600 placeholder-slate-400 focus:outline-none focus:border-[#4a9ebd] focus:ring-[#4a9ebd] block w-full rounded-md sm:text-sm focus:ring-1 text-slate-300"
+                placeholder="Confirm Password"
+              />
+              {% if form.password2.errors %}
+              <div class="mt-2 text-red-500 text-sm">
+                {{ form.password2.errors }}
+              </div>
+              {% endif %}
+            </label>
+          </div>
+          <button
+            type="submit"
+            name="submit"
+            class="rouned-lg bg-black w-full bg-opacity-80 h-10 text-slate-100 mt-4 font-bold"
+          >
+            Daftar
+          </button>
+        </form>
+        <div class="mt-4 text-center text-black font-semibold">
+          Sudah punya akun? 
+          <a
+            href="{% url 'landing:login' %}"
+            class="underline underline-offset-2"
+          >
+            Masuk
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static '/toggleNav.js' %}"></script>
