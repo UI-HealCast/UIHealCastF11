@@ -20,11 +20,10 @@ def show_jadwal_operasi(request):
     }
     return render(request, 'jadwaloperasi.html', context)
 
-@csrf_exempt
 def add_jadwal_operasi(request):
     if request.method == 'POST':
         dokter = Landing.objects.get(user=request.user)
-        pasienVal = request.POST.get('pasien')
+        pasienVal = str(request.POST.get('pasien'))
         pasien = Landing.objects.get(username=pasienVal)
         tanggal = request.POST.get('tanggal')
         jam = request.POST.get('jam')
@@ -33,7 +32,7 @@ def add_jadwal_operasi(request):
         Operasi.objects.create(dokter = dokter, pasien = pasien,\
                     tanggal = tanggal, jam = jam,\
                     keterangan = keterangan)
-        return JsonResponse(status=200)
+        return JsonResponse({"data": "jadwal"}, status=200)
 
 def jadwal_operasi_json(request):
     userLogin = Landing.objects.get(user=request.user)

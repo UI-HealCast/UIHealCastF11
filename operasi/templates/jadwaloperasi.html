@@ -5,38 +5,36 @@
 {% endblock meta %}
 
 {% block content %}
-<div id="tableJadwal"></div>
-<div>
+<div class="h-screen rounded-2xl bg-gray-300 bg-op w-full p-2 ">
+  <div id="tableJadwal"></div>
   {% if adalahDokter%}
-  <div class="h-screen rounded-2xl bg-gray-300 bg-op w-full p-2 ">
-    <div class="flex justify-center h-full items-center">
-    <form class="form-operasi" action="" method="POST" id="tambah_jadwal">
-      {% csrf_token %}
-      <div class="flex justify-center">
-        <div class=" bg-yellow-300 p-3 rounded-2xl">
-          <div class="flex flex-col">
-            <p class="flex justify-center">Username Pasien</p>
-            {{form.pasien}}
-          </div>
-          <div class="flex flex-col">
-            <p class="flex justify-center">Tanggal Operasi</p>
-            {{form.tanggal}}
-          </div>
-          <div class="flex flex-col">
-            <p class="flex justify-center">Jam Operasi</p>
-            {{form.jam}}
-          </div>
-          <div>
-            <p class="flex justify-center">Keterangan</p>
-            {{form.keterangan}}
-          </div>
+  <div class="flex justify-center h-full items-center">
+  <form class="form-operasi" action="" method="POST" id="tambah_jadwal">
+    {% csrf_token %}
+    <div class="flex justify-center">
+      <div class=" bg-yellow-300 p-3 rounded-2xl">
+        <div class="flex flex-col">
+          <p class="flex justify-center">Username Pasien</p>
+          {{form.pasien}}
+        </div>
+        <div class="flex flex-col">
+          <p class="flex justify-center">Tanggal Operasi</p>
+          {{form.tanggal}}
+        </div>
+        <div class="flex flex-col">
+          <p class="flex justify-center">Jam Operasi</p>
+          {{form.jam}}
+        </div>
+        <div>
+          <p class="flex justify-center">Keterangan</p>
+          {{form.keterangan}}
         </div>
       </div>
-      <div class="flex justify-center">
-      <input class="p-2 m-2 bg-green-300 rounded-2xl " type="submit" value="Submit" class="button">
-      </div>
-    </form>
     </div>
+    <div class="flex justify-center">
+    <input class="p-2 m-2 bg-green-300 rounded-2xl " type="submit" value="Submit" class="button">
+    </div>
+  </form>
   </div>
   {% endif %}
 </div>
