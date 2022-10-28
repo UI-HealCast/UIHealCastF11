@@ -1,19 +1,33 @@
 from email.policy import default
+from random import choices
 from django.db import models
 from landing.models import Landing
 
 # Create your models here.
+
+STATUS_USER = [
+    ('Mahasiswa UI', 'Mahasiswa UI'),
+    ('Pegawai UI', 'Pegawai UI'),
+    ('Others', 'Others'),
+]
+
+BENTUK_KONSELING = [
+    ('Offline', 'Offline'),
+    ('Online via chat', 'Online via chat'),
+    ('Online via video call', 'Online via video call'),
+]
+
 class PelayananKonseling(models.Model):
     user = models.ForeignKey(Landing, on_delete=models.CASCADE, null=True, blank=True, related_name='user_pelayananKonseling')
 
-    username = models.CharField(max_length=30, default='-')
+    username = models.CharField(max_length=30, default='')
 
-    nama = models.CharField(max_length=30, default='-')
-    status_user = models.CharField(max_length=20, default='-') #dropdown (Mahasiswa UI, Pegawai UI, Others)
-    noHP = models.CharField(max_length=12)
-    email = models.EmailField(max_length=50, default='-')
-    bentuk_konseling = models.CharField(max_length=30, default='-') #dropdown (Offline, Online via chat, Online via video call)
-    keluhan_konseling = models.TextField(default='-')
+    nama = models.CharField(max_length=30, default='')
+    status_user = models.CharField(max_length=20, default='', choices=STATUS_USER) #dropdown (Mahasiswa UI, Pegawai UI, Others)
+    noHP = models.IntegerField()
+    email = models.EmailField(max_length=50, default='')
+    bentuk_konseling = models.CharField(max_length=30, default='', choices=BENTUK_KONSELING) #dropdown (Offline, Online via chat, Online via video call)
+    keluhan_konseling = models.TextField(default='')
 
     def __str__(self):
         return self.nama
