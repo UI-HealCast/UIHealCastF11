@@ -1,73 +1,48 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block meta %}
 <title>Jadwal Operasi</title>
 {% endblock meta %}
 
 {% block content %}
 <div id="tableJadwal"></div>
+<div>
+  {% if adalahDokter%}
+  <div class="h-screen rounded-2xl bg-gray-300 bg-op w-full p-2 ">
+    <div class="flex justify-center h-full items-center">
+    <form class="form-operasi" action="" method="POST" id="tambah_jadwal">
+      {% csrf_token %}
+      <div class="flex justify-center">
+        <div class=" bg-yellow-300 p-3 rounded-2xl">
+          <div class="flex flex-col">
+            <p class="flex justify-center">Username Pasien</p>
+            {{form.pasien}}
+          </div>
+          <div class="flex flex-col">
+            <p class="flex justify-center">Tanggal Operasi</p>
+            {{form.tanggal}}
+          </div>
+          <div class="flex flex-col">
+            <p class="flex justify-center">Jam Operasi</p>
+            {{form.jam}}
+          </div>
+          <div>
+            <p class="flex justify-center">Keterangan</p>
+            {{form.keterangan}}
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center">
+      <input class="p-2 m-2 bg-green-300 rounded-2xl " type="submit" value="Submit" class="button">
+      </div>
+    </form>
+    </div>
+  </div>
+  {% endif %}
+</div>
 {% endblock content %}
-
-
 
 {% block script %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript">
-  function getJadwal(){
-    $.ajax({
-      url: "{% url 'operasi:jadwal_operasi_json' %}",
-      method: "GET",
-      dataType: "json",
-      success: function(data){
-        var table = $('#tableJadwal');
-        table.empty();
-        if (data == '') {
-          table.append("<p>Tidak ada jadwal operasi!</p>");
-        } else {
-          console.log("ada");
-          table.append("<table class='table-auto'><thead><tr><th>Dokter</th>"+
-            "<th>Pasien</th><th>Jenis</th><th>Tanggal</th>"+
-            "<th>Jam</th><th>Durasi</th><th>Keterangan</th>"+
-            "</tr></thead><tbody>");
-          $(data).each(function(key, val){
-          table.append("<tr><td>"+val.dokter.username+"</td><td>"+
-            val.pasien.username+"</td><td>"+val.jenis+"</td><td>"+
-            val.tanggal+"</td><td>"+val.jam+"</td><td>"+
-            val.durasi+"</td><td>"+val.keterangan+"</td></tr>")
-          })
-          table.append("</tbody></table>");
-        }
-      },
-      error: function(error){
-        alert(error.responseText);
-      }
-    })
-  }
-  
-  function addJadwal(){
-    var operasi = {}
-    operasi.pasien = $('#get_pasien').val();
-    operasi.jenis = $('#get_jenis').val();
-    operasi.tanggal = $('#get_tanggal').val();
-    operasi.jam = $('#get_jam').val();
-    operasi.durasi = $('#get_durasi').val();
-    operasi.keterangan = $('#get_keterangan').val();
-    var operasiJson = JSON.stringify(operasi);
-    $.ajax({
-      url: "{% url 'operasi:add_jadwal_operasi' %}",
-      method: "POST",
-      data: operasiJson,
-      contentType: 'application/json; charset = utf-8',
-      success: function(){
-        getJadwal();
-        alert('Jadwal operasi berhasil ditambahkan!');
-      },
-      error: function(error){
-        alert("Gagal menambahkan jadwal operasi!");
-      }
-      
-    })
-  }
-  getJadwal();
-</script>
+<script src="{% static '/operasi.js' %}"></script>
 {% endblock script %}

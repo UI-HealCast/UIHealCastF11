@@ -1,32 +1,39 @@
 from django.shortcuts import render
 from operasi.models import Operasi
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from landing.models import Landing
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from operasi.forms import OperasiForm
 
 # Create your views here.
+@login_required(login_url='../../login/')
 def show_jadwal_operasi(request):
-    user = request.user
+    userLogin = Landing.objects.get(user=request.user)
+    form = OperasiForm()
+    form.fields["pasien"].queryset = Landing.objects.filter(is_patient=True)
+
     context = {
-    'user': user.username,
+    'adalahDokter': userLogin.is_doctor,
+    'form': form
     }
     return render(request, 'jadwaloperasi.html', context)
 
+@csrf_exempt
 def add_jadwal_operasi(request):
     if request.method == 'POST':
-        pasien = request.POST.get('get_pasien')
-        jenis = request.POST.get('get_jenis')
-        tanggal = request.POST.get('get_tanggal')
-        jam = request.POST.get('get_jam')
-        durasi = request.POST.get('get_durasi')
-        keterangan = request.POST.get('get_keterangan')
+        dokter = Landing.objects.get(user=request.user)
+        pasienVal = request.POST.get('pasien')
+        pasien = Landing.objects.get(username=pasienVal)
+        tanggal = request.POST.get('tanggal')
+        jam = request.POST.get('jam')
+        keterangan = request.POST.get('keterangan')
 
-        operasi = Operasi(dokter = request.user, pasien = pasien,\
-                    jenis = jenis, tanggal = tanggal, jam = jam,\
-                    durasi = durasi, keterangan = keterangan)
-
-        operasi.save()
-    return render(request, 'jadwaloperasi.html')
+        Operasi.objects.create(dokter = dokter, pasien = pasien,\
+                    tanggal = tanggal, jam = jam,\
+                    keterangan = keterangan)
+        return JsonResponse(status=200)
 
 def jadwal_operasi_json(request):
     userLogin = Landing.objects.get(user=request.user)
