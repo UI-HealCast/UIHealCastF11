@@ -174,10 +174,8 @@ def change_status(request):
 @csrf_exempt
 def modif_hasil(request):
     if request.method == 'POST':
-        print(12321)
         desc = request.POST.get('hasil')
         peka = request.POST.get('peka')
-        print(peka)
         dataMasuk = Layan.objects.get(pk=peka)
         dataMasuk.hasilPeriksa = desc
         dataMasuk.status = not dataMasuk.status

@@ -23,3 +23,4 @@ class Layan(models.Model):
     hasilPeriksa = models.CharField(max_length=150, default='-')
     
     statusObat = models.BooleanField(null=True, blank=True, default=False)
+    statusBayar = models.BooleanField(null=True, blank=True, default=False)
