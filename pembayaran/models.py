@@ -9,4 +9,3 @@ from pelayananDokter.models import Layan
 
 class Bayar(models.Model):
     user = models.ForeignKey(Landing, on_delete=models.CASCADE, null=True, blank=True, related_name = "landing_user")
-    statusBayar = models.ForeignKey(Layan, )

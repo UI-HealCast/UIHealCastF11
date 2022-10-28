@@ -1,40 +1,29 @@
-from email import message
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from pembayaran.models import Order
-import random
-
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
+from django.shortcuts import render
 
 from django.http import HttpResponseRedirect
 
-from django.views.decorators.csrf import csrf_exempt
 from pelayananDokter.models import Layan
 from django.shortcuts import HttpResponse
+from django.core import serializers
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-# @csrf_exempt
-# def change_status(request):
-#      if request.method == "PATCH":
-#         task = Layan.objects.get(user=request.user)
-#         task.doctorReady = not (task.doctorReady)
-#         task.save()
-#         return JsonResponse({"instance": "Proyek Dibuat"},status=200)
+@login_required(login_url='../../login/')
+def show_data(request):
+    data_pengguna = Layan.objects.all().values()
+    context = {
+        'list_pengguna' : data_pengguna,
+    }
+    return render(request, "pembayaran.html", context)
 
-def change_status(request,pk):
-    bayar = Layan.objects.get(id=pk)
-    bayar.statusBayar = not(bayar.statusBayar)
-    bayar.save()
-    return HttpResponse(bayar.statusBayar)
-
+def show_data_json(request):
+    data_pengguna = Layan.objects.all()
+    response = serializers.serialize('json', data_pengguna)
+    return HttpResponse(response,content_type='application/json')
 
 def change_status(request, id):
-    bayar = Layan.objects.get(id=id)
-    if change_status.is_finished:
-        change_status.is_finished = False
-    else:
-        change_status.is_finished = True
+    change_status = Layan.objects.get(id=id)
+    change_status.statusBayar = not(change_status.statusBayar)
     change_status.save()
-    return HttpResponseRedirect("/todolist")
+    return HttpResponseRedirect("/pembayaran")

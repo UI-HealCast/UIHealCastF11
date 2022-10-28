@@ -1,62 +1,47 @@
-.pembayaran{
-    justify-content: center;
-    text-align: center;
-    padding-left: 15px;
+.dataTables_wrapper select,
+.dataTables_wrapper .dataTables_filter input {
+    color: #4a5568;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    line-height: 1.25;
+    border-width: 2px;
+    border-radius: .25rem;
+    border-color: #edf2f7;
+    background-color: #edf2f7;
 }
-
-.checkoutform label{
-    font-size: 14px !important;
-    font-weight: 600;
+table.dataTable.hover tbody tr:hover,
+table.dataTable.display tbody tr:hover {
+    background-color: #ebf4ff;
 }
-
-.checkoutform input{
-    font-size: 16px !important;
-    padding: 20px;
-}
-
-.heading{
-    padding-left: 10px;
-    font-size: 30px !important;
+.dataTables_wrapper .dataTables_paginate .paginate_button {
     font-weight: 700;
+    border-radius: .25rem;
+    border: 1px solid transparent;
 }
-
-#data{
-    text-align: justify;
-    margin-bottom: 10px;
-    display: inline-block;
-    padding: 5px 10px;
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    color: #fff !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+    font-weight: 700;
+    border-radius: .25rem;
+    background: #FCD34D !important;
+    border: 1px solid transparent;
 }
-
-label{
-    display: inline-block;
-    width: 400px;
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: #fff !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+    font-weight: 700;
+    border-radius: .25rem;
+    background: #FCD34D !important;
+    border: 1px solid transparent;
 }
-
-input[type=text], input[type=email]{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+table.dataTable.no-footer {
+    border-bottom: 1px solid #e2e8f0;
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
 }
-
-.form-control{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#table{
-    text-align: center;
-    justify-content: center;
-    display: inline-block;
-    border-collapse: collapse;
-    margin: 25px 0;
-    /* font-size: 0.9em; */
-    /* min-width: 400px; */
-}
-
-.thead{
-    background-color: #FCD34D;
-    text-align: center;
+table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+    background-color: #FCD34D !important;
 }
