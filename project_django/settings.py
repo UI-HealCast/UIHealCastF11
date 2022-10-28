@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'tailwind',
     'pelayananDokter',
     'theme',
-    'django_browser_reload'
+    'django_browser_reload',
+    'pelayananApotek',
 ]
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 TAILWIND_APP_NAME = 'theme'
