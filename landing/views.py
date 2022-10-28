@@ -99,7 +99,7 @@ def getUser(test):
 def list_pasien(request):
     data = Landing.objects.get(user=request.user)
     if data.is_doctor:
-        data = Layan.objects.filter(hasilPeriksa="-")
+        data = Layan.objects.filter(hasilPeriksa="-",dokter=data)
         return HttpResponse(serializers.serialize('json', data), content_type='application/json')
     else:
         return HttpResponseNotFound("You Don't Belong Here")
