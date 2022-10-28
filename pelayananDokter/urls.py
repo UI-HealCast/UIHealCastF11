@@ -1,8 +1,10 @@
 from django.urls import path
-from pelayananDokter.views import index
+from pelayananDokter.views import addKeluhan, tembakKeluhan, show_log
 
 app_name = 'pelayananDokter'
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', addKeluhan, name='addKeluhan'),
+    path('add/', tembakKeluhan, name='tembakKeluhan'),
+    path('show_log/', show_log, name='showLog'),
 ]
