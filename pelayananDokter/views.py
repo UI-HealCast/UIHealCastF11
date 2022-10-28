@@ -72,6 +72,6 @@ def tembakKeluhan(request):
         username = request.user.username
         status = False
         user = Landing.objects.get(user=request.user)
-        Layan.objects.create(user=user, dokter=dokter, keluhan=keluhan, noHP = noHP, username=username, status=status)
+        Layan.objects.create(user=user, dokter=dokter, keluhan=keluhan, noHP = noHP, username=username, status=status, usernameDokter = dokter.username)
         # when saved go back to lab-3
         return JsonResponse({"instance": "Proyek Dibuat"},status=200)
