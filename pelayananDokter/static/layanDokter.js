@@ -20,12 +20,12 @@ $(document).ready(function () {
                                 <div class="flex m-2 p-2 justify-center">
                                     <div>
                                         <div class="transition-opacity bg-gray-600 bg-opacity-10 rounded-2xl p-2">
-                                        <p class="break-all">${i.fields.dokter}</p>
+                                        <p class="break-all">${i.fields.usernameDokter}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                  <p>Status Konsultasi : ${mssgDokter} </p>
+                                  <p>Status Konsultasi : ${mssgDokter } </p>
                                   <p>Status Obat : ${mssgObat   }</p>
                                 </div>
                             </div>
