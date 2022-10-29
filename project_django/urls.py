@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('landing.urls')),
     path('operasi/', include("operasi.urls")),
     path('pelayananDokter/', include('pelayananDokter.urls')),
+    path('pelayananKonseling/', include('pelayananKonseling.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
