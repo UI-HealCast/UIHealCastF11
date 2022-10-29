@@ -103,9 +103,16 @@
 <div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2">
 <div class=" p-4 bg-gray-300 h-fit rounded-2xl my-2">
   <p class="font-bold text-2xl">Jadwal Operasi</p class="font-bold text-2xl">
-  <table id="tableJadwal" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+  {% if adalahDokter %}
+  <table id="tableJadwalDokter" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+  {% else %}
+  <table id="tableJadwalPasien" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+  {% endif %}
     <thead>
       <tr>
+        {% if adalahDokter %}
+          <th>Hapus</th>
+        {% endif %}
           <th>Dokter</th>
           <th>Pasien</th>
           <th>Tanggal Operasi</th>
@@ -115,17 +122,20 @@
       </thead>
       <tbody>
       <tr>
-          <td>Data 1</td>
-          <td>Data 2</td>
-          <td>Data 3</td>
-          <td>Data 4</td>
-          <td>Data 5</td>
+        {% if adalahDokter %}
+          <td>Hapus</td>
+        {% endif %}
+          <td>Dokter</td>
+          <td>Pasien</td>
+          <td>Tanggal Operasi</td>
+          <td>Jam</td>
+          <td>Keterangan</td>
       </tr>
       </tbody>
   </table>
 </div>
 </div>
-{% if adalahDokter%}
+{% if adalahDokter %}
 
   <div class="flex justify-center h-full items-center">
   <form class="form-operasi" action="" method="POST" id="tambah_jadwal">
@@ -167,4 +177,18 @@
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script src="{% static '/operasi.js' %}"></script>
+<script>
+function hapusJadwal(pk){
+  $.ajax({
+    url:'/operasi/delete/'+pk,
+    method: 'DELETE',
+    success: function(){
+      window.location.href = "/operasi/";
+    },
+    error: function(e){
+      alert(e);
+    }
+  });
+};
+</script>
 {% endblock script %}

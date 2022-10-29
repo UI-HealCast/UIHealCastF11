@@ -1,5 +1,5 @@
 from django.urls import path
-from operasi.views import show_jadwal_operasi, jadwal_operasi_json, add_jadwal_operasi, get_user
+from operasi.views import *
 
 app_name = 'operasi'
 
@@ -8,4 +8,5 @@ urlpatterns = [
     path('json/', jadwal_operasi_json, name='jadwal_operasi_json'),
     path('add/', add_jadwal_operasi, name='add_jadwal_operasi'),
     path('user/', get_user, name='get_user'),
+    path('delete/<int:pk>', delete_operasi, name='delete_operasi')
 ]

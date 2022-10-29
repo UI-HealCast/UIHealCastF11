@@ -48,3 +48,9 @@ def jadwal_operasi_json(request):
 def get_user(request):
     getUser = Landing.objects.all()
     return HttpResponse(serializers.serialize("json", getUser), content_type="application/json")
+
+@csrf_exempt
+def delete_operasi(request, pk):
+    getOperasi = Operasi.objects.filter(pk=pk)
+    getOperasi.delete()
+    return show_jadwal_operasi(request)

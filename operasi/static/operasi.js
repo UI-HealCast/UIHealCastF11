@@ -1,5 +1,30 @@
 $(document).ready(function() {
-  $('#tableJadwal').DataTable({
+  $('#tableJadwalDokter').DataTable({
+    "ajax": {
+        "url": "/operasi/json/",
+        "dataSrc": ''
+    },
+    "remove":true,
+    "searching": true,
+    "ordering": true,
+    "responsive": true,
+    "columns": [
+      {"data": "pk",
+        render: function(data,type,row){
+          return "<button onclick='hapusJadwal(" + data + ")' class='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Hapus</button>";
+        }
+      },
+        {"data": "fields.usernameDokter"},
+        {"data": "fields.usernamePasien"},
+        {"data": "fields.tanggal"},
+        {"data": "fields.jam"},
+        {"data": "fields.keterangan"},
+    ]
+  }).columns.adjust()
+    .responsive.recalc();
+
+
+  $('#tableJadwalPasien').DataTable({
     "ajax": {
         "url": "/operasi/json/",
         "dataSrc": ''
@@ -33,7 +58,6 @@ $(document).on("submit", "#tambah_jadwal", function (e) {
         },
         dataType: "json",
         success: function(){
-          alert('Jadwal operasi berhasil ditambahkan!');
           window.location.href = "/operasi/";
         },
         error: function(){
