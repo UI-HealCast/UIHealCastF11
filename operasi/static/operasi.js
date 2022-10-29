@@ -1,72 +1,21 @@
-$(document).ready(function () {
-    $.ajax({
-        url: "/operasi/json/",
-        method: "GET",
-        dataType: "json",
-        success: function(data){
-          var table = $('#tableJadwal');
-          table.empty();
-          if (data == '') {
-            table.append("<div class='flex justify-center bg-yellow-300 p-3 rounded-2xl'>" +
-            "<p>Tidak ada jadwal operasi!</p></div>");
-          } else {
-            table.append(`<div class='overflow-x-auto relative shadow-md sm:rounded-lg'>
-                            <table class='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
-                              <thead class='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
-                                  <tr>
-                                    <th scope='col' class='py-3 px-6'>
-                                          Dokter
-                                      </th>
-                                      <th scope="col" class="py-3 px-6">
-                                          Pasien
-                                      </th>
-                                      <th scope="col" class="py-3 px-6">
-                                          Tanggal
-                                      </th>
-                                      <th scope="col" class="py-3 px-6">
-                                          Jam
-                                      </th>
-                                      <th scope="col" class="py-3 px-6">
-                                          Keterangan
-                                      </th>
-                                      <th scope="col" class="py-3 px-6">
-                                          Hapus
-                                      </th>
-                                  </tr>
-                              </thead>
-                              <tbody>`);
-            $(data).each(function(key, val){
-              table.append(`<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                              <td class="py-4 px-6">
-                                  ${val.fields.usernameDokter}
-                              </td>
-                              <td class="py-4 px-6">
-                                  ${val.fields.usernamePasien}
-                              </td>
-                              <td class="py-4 px-6">
-                                  ${val.fields.tanggal}
-                              </td>
-                              <td class="py-4 px-6">
-                                  ${val.fields.jam}
-                              </td>
-                              <td class="py-4 px-6">
-                                  ${val.fields.keterangan}
-                              </td>
-                              <td class="flex items-center py-4 px-6 space-x-3">
-                                  <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
-                              </td>
-                            </tr>`);
-            });
-            
-            table.append(`</tbody>
-                        </table>
-                      </div>`);
-          }
-        },
-        error: function(error){
-          alert(error);
-        }
-    })
+$(document).ready(function() {
+  $('#tableJadwal').DataTable({
+    "ajax": {
+        "url": "/operasi/json/",
+        "dataSrc": ''
+    },
+    "searching": true,
+    "ordering": true,
+    "responsive": true,
+    "columns": [
+        {"data": "fields.usernameDokter"},
+        {"data": "fields.usernamePasien"},
+        {"data": "fields.tanggal"},
+        {"data": "fields.jam"},
+        {"data": "fields.keterangan"},
+    ]
+  }).columns.adjust()
+    .responsive.recalc();
 });
 
 $(document).on("submit", "#tambah_jadwal", function (e) {
