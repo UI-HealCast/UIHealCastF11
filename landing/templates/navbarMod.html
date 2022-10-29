@@ -24,7 +24,7 @@
         </div>
         <div class="bg-white hidden flex-col rounded mt-1 p-2 text-sm w-32 absolute" id="dropdown">
             <a href="{% url 'pelayananDokter:addKeluhan' %}"" class="px-2 py-1 hover:bg-blue-300 rounded">Dokter</a>
-            <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Operasi</a>
+            <a href="{% url 'operasi:show_jadwal_operasi' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Operasi</a>
             <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Konseling</a>
         </div>
       </div>
