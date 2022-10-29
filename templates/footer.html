@@ -2,7 +2,7 @@
     <div class="flex flex-col md:flex-row justify-center">
       <div class="w-full lg:w-2/6 mt-8 lg:mt-0 lg:mx-4">
         <h3 class="font-bold text-2xl">UI Health Care</h3>
-        <p class="text-gray-400">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.</p>
+        <p class="text-black">Arsitektur Kesehatan menjadi salah satu isu penting yang dibahas dalam Presidensi G20 Indonesia 2022. Fokus dari isu ini adalah melakukan transformasi infrastruktur kesehatan global untuk meningkatkan pencegahan, kesiagaan, dan responsivitas penanganan. Sejalan dengan tema presidensi G20 “Recover Together, Recover Stronger”, pelayanan kesehatan harus inklusif dan responsif. Hal ini dapat diwujudkan dengan melakukan transformasi terhadap sistem informasi kesehatan agar semua kalangan dapat mengakses pelayanan kesehatan dengan mudah.</p>
 
         <form class="flex items-center mt-6">
           <div class="w-full">
@@ -14,8 +14,8 @@
       <div class="w-fit lg:w-1/6 mt-8 lg:mt-0 lg:mx-4 mr-4">
         <h5 class="uppercase tracking-wider font-semibold text-gray-500">Pelayanan</h5>
         <ul class="mt-4">
-          <li class="mt-2"><a href="#" title="" class="opacity-75 hover:opacity-100">Konseling Dokter</a></li>
-          <li class="mt-2"><a href="#" title="" class="opacity-75 hover:opacity-100">Operasi</a></li>
+          <li class="mt-2"><a href="{% url 'pelayananDokter:addKeluhan' %}" title="" class="opacity-75 hover:opacity-100">Konseling Dokter</a></li>
+          <li class="mt-2"><a href="{% url 'operasi:show_jadwal_operasi' %}" title="" class="opacity-75 hover:opacity-100">Operasi</a></li>
         </ul>
       </div>
 
@@ -23,7 +23,7 @@
         <h5 class="uppercase tracking-wider font-semibold text-gray-500">Narahubung</h5>
         <ul class="mt-4">
           <li>
-            <a href="#" title="" class="block flex items-center opacity-75 hover:opacity-100">
+            <a href="https://goo.gl/maps/F4cm2zJsRune9eRe8" title="" class="block flex items-center opacity-75 hover:opacity-100">
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                   class="fill-current">
@@ -52,7 +52,7 @@
             </a>
           </li>
           <li class="mt-4">
-            <a href="#" title="" class="block flex items-center opacity-75 hover:opacity-100">
+            <a href="https://wa.me/6281298282870" title="" class="block flex items-center opacity-75 hover:opacity-100">
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                   class="fill-current">
@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="mt-4">
-            <a href="#" title="" class="block flex items-center opacity-75 hover:opacity-100">
+            <a href="mailto:yudi.putra@ui.ac.id?" title="" class="block flex items-center opacity-75 hover:opacity-100">
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                   class="fill-current">
