@@ -104,6 +104,7 @@ def tembakDBAjax(request):
 
         PelayananKonseling.objects.create(
             user=user,
+            username=username,
             nama=nama,
             status_user=status_user,
             noHP=noHP,
@@ -125,3 +126,9 @@ def tembakDBAjax(request):
         )
 
         return JsonResponse({"data": "succes"},status=200)
+
+@login_required(login_url='../../login/')
+def show_json_konseling(request):
+    user = request.user
+    data = PelayananKonseling.objects.filter(user=Landing.objects.get(user=user))
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
