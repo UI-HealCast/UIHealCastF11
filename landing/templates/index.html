@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 
 {% block meta %}
+{% load static %} 
 <title>Hello, world!</title>
 {% endblock meta %}
 
 {% block content %}
-<div class="h-screen rounded-2xl bg-gray-300 bg-op w-full">
-  <p>1123213</p>
+<div class="h-fit rounded-xl bg-gray-300">
+  <button class="absolute bg-yellow-300 p-2 rounded-2xl  my-40">Daftar Sekarang</button>
+  <img class="rounded-2xl" src='{% static "/test.svg" %}' alt="home" />
+    
+
 </div>
+
 {% endblock content %}
 
 
