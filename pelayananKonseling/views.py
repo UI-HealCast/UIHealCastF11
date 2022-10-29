@@ -55,57 +55,59 @@ def tembakDBAjax(request):
         sore = request.POST.get('sore')
         malam = request.POST.get('malam')
 
-        if senin == 'on':
+        
+
+        if senin == 'true':
             senin = True
         else:
             senin = False
 
-        if selasa == 'on':
+        if selasa == 'true':
             selasa = True
         else:
             selasa = False
 
-        if rabu == 'on':
+        if rabu == 'true':
             rabu = True
         else:
             rabu = False
 
-        if kamis == 'on':
+        if kamis == 'true':
             kamis = True
         else:
             kamis = False
 
-        if jumat == 'on':
+        if jumat == 'true':
             jumat = True
         else:
             jumat = False
 
-        if sabtu == 'on':
+        if sabtu == 'true':
             sabtu = True
         else:
             sabtu = False
 
-        if minggu == 'on':
+        if minggu == 'true':
             minggu = True
         else:
             minggu = False
 
-        if pagi == 'on':
+        if pagi == 'true':
             pagi = True
         else:
             pagi = False
 
-        if siang == 'on':
+        if siang == 'true':
             siang = True
         else:
             siang = False
 
-        if sore == 'on':
+        if sore == 'true':
             sore = True
         else:
             sore = False
 
-        if malam == 'on':
+        if malam == 'true':
             malam = True
         else:
             malam = False
