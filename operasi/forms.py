@@ -2,8 +2,11 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from .models import Operasi, Landing
 
-class DateInput(forms.DateTimeInput):
+class DatePicker(forms.DateInput):
     input_type = 'date'
+
+class TimePicker(forms.TimeInput):
+    input_type = 'time'
 
 class OperasiForm(forms.ModelForm):
     class Meta:
@@ -11,8 +14,8 @@ class OperasiForm(forms.ModelForm):
         fields = ['dokter', 'pasien', 'tanggal', 'jam', 'keterangan']
 
         pasien = forms.ModelChoiceField(queryset=Landing.objects.filter(is_patient=True))
-        tanggal = forms.CharField(max_length = 30, required=True)
-        jam = forms.CharField(max_length = 30, required=True)
+        tanggal = forms.DateField(widget=DatePicker)
+        jam = forms.TimeField(widget=TimePicker)
         keterangan = forms.Textarea()
 
         labels = {
@@ -22,6 +25,8 @@ class OperasiForm(forms.ModelForm):
             'keterangan': _('Keterangan')
         }
         widgets = {
+            'tanggal': DatePicker(),
+            'jam': TimePicker(),
             'keterangan': forms.Textarea(attrs={'class': 'bg-white rounded-2xl p-4'})
         }
 
