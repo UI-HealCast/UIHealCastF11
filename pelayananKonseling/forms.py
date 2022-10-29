@@ -18,7 +18,7 @@ BENTUK_KONSELING = [
 class PelayananKonselingForm(ModelForm):
     class Meta:
         model = PelayananKonseling
-        fields = ['nama', 'status_user', 'noHP', 'email', 'bentuk_konseling', 'keluhan_konseling']
+        fields = ['nama', 'status_user', 'noHP', 'email', 'bentuk_konseling', 'keluhan_konseling', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu', 'pagi', 'siang', 'sore', 'malam']
 
        
 
@@ -27,6 +27,18 @@ class PelayananKonselingForm(ModelForm):
             'noHP': _('Masukkan nomor yang dapat dihubungi'),
             'email': _('Masukkan email yang dapat dihubungi'),
             'keluhan_konseling': _('Isi keluhan'),
+            'senin': _('Senin'),
+            'selasa': _('Selasa'),
+            'rabu': _('Rabu'),
+            'kamis': _('Kamis'),
+            'jumat': _('Jumat'),
+            'sabtu': _('Sabtu'),
+            'minggu': _('Minggu'),
+            'pagi': _('Pagi'),
+            'siang': _('Siang'),
+            'sore': _('Sore'),
+            'malam': _('Malam'),
+            
         }
         widgets = {
             'nama': forms.TextInput(attrs={'placeholder': 'Masukkan Nama Anda','class': 'form-control', 'class': 'bg-white rounded-2xl p-4'}),
@@ -41,44 +53,6 @@ class PelayananKonselingForm(ModelForm):
 		    'required' : 'Mohon isi kolom ini',
 	    }
 
-class PreferensiHariForm(ModelForm):
-    class Meta:
-        model = PreferensiHari
-        fields = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu']
-
-        senin = forms.BooleanField(required=False)
-        selasa = forms.BooleanField(required=False)
-        rabu = forms.BooleanField(required=False)
-        kamis = forms.BooleanField(required=False)
-        jumat = forms.BooleanField(required=False)
-        sabtu = forms.BooleanField(required=False)
-        minggu = forms.BooleanField(required=False)
-
-        labels = {
-            'senin': _('Senin'),
-            'selasa': _('Selasa'),
-            'rabu': _('Rabu'),
-            'kamis': _('Kamis'),
-            'jumat': _('Jumat'),
-            'sabtu': _('Sabtu'),
-            'minggu': _('Minggu'),
-        }
+# Path: pelayananKonseling\views.py
 
 
-
-class PreferensiWaktuForm(ModelForm):
-    class Meta:
-        model = PreferensiWaktu
-        fields = ['pagi', 'siang', 'sore', 'malam']
-
-        pagi = forms.BooleanField(required=False)
-        siang = forms.BooleanField(required=False)
-        sore = forms.BooleanField(required=False)
-        malam = forms.BooleanField(required=False)
-
-        labels = {
-            'pagi': _('Pagi'),
-            'siang': _('Siang'),
-            'sore': _('Sore'),
-            'malam': _('Malam'),
-        }

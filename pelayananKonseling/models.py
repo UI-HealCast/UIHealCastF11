@@ -28,12 +28,8 @@ class PelayananKonseling(models.Model):
     email = models.EmailField(max_length=50, default='')
     bentuk_konseling = models.CharField(max_length=30, default='', choices=BENTUK_KONSELING) #dropdown (Offline, Online via chat, Online via video call)
     keluhan_konseling = models.TextField(default='')
+    status_konseling = models.BooleanField(null=True, blank=True, default=False)
 
-    def __str__(self):
-        return self.nama
-
-class PreferensiHari(models.Model):
-    user = models.ForeignKey(PelayananKonseling, on_delete=models.CASCADE, null=True, blank=True, related_name='user_preferensiHari')
     senin = models.BooleanField(default=False)
     selasa = models.BooleanField(default=False)
     rabu = models.BooleanField(default=False)
@@ -42,13 +38,17 @@ class PreferensiHari(models.Model):
     sabtu = models.BooleanField(default=False)
     minggu = models.BooleanField(default=False)
 
-class PreferensiWaktu(models.Model):
-    user = models.ForeignKey(PelayananKonseling, on_delete=models.CASCADE, null=True, blank=True, related_name='user_preferensiWaktu')
     pagi = models.BooleanField(default=False)
     siang = models.BooleanField(default=False)
     sore = models.BooleanField(default=False)
     malam = models.BooleanField(default=False)
 
+
+    def __str__(self):
+        return self.nama
+
+
+    
 
 
     
