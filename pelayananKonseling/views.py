@@ -14,6 +14,14 @@ from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='../../login/')
 def addKonseling(request):
+    # if request.method == 'POST':
+    #     form = PelayananKonselingForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return HttpResponseRedirect('/pelayananKonseling/')
+    # else:
+    #     form = PelayananKonselingForm()
+    # return render(request, 'pelayananKonseling/addKonseling.html', {'form': form})
     pelayanan_konseling_form = PelayananKonselingForm()
 
     context = {
@@ -125,7 +133,7 @@ def tembakDBAjax(request):
             malam=malam,
         )
 
-        return JsonResponse({"data": "succes"},status=200)
+        return JsonResponse({"status": "succes"},status=200)
 
 @login_required(login_url='../../login/')
 def show_json_konseling(request):

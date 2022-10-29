@@ -6,71 +6,77 @@
 
 {% block content %}
 <div class="h-max rounded-2xl bg-gray-300 bg-op w-full p-2 ">
-    <div class="flex justify-center h-max items-center">
-    <form class="form-konseling" action="" method="POST" id="tembak_dbKonseling">
-      {% csrf_token %}
-      <div class="flex justify-center">
-        <div class=" bg-yellow-300 p-3 rounded-2xl">
-          <div class="flex flex-col">
-            <p class="flex justify-center"><b>Masukan Nama</b></p>
-            {{pelayanan_konseling_form.nama}}
-          </div>
-          <div class="flex flex-col">
-            <p class="flex justify-center"><b>Status</b></p>
-            {{pelayanan_konseling_form.status_user}}
-          </div>
-          <div class="flex flex-col">
-            <p class="flex justify-center"><b>Email</b></p>
-            {{pelayanan_konseling_form.email}}
-          </div>
-          <div class="flex flex-col">
-            <p class="flex justify-center"><b>Bentuk Konseling yang Diinginkan</b></p>
-            {{pelayanan_konseling_form.bentuk_konseling}}
-          </div>
-          <div>
-            <p class="flex justify-center"><b>Isi Keluhan</b></p>
-            {{pelayanan_konseling_form.keluhan_konseling}}
-          </div>
-          <div>
-            <p class="flex justify-center"><b>Preferensi Hari Konseling</b></p>
-            <p>{{pelayanan_konseling_form.senin}} Senin</p>
-            <p>{{pelayanan_konseling_form.selasa}} Selasa</p>
-            <p>{{pelayanan_konseling_form.rabu}} Rabu</p>
-            <p>{{pelayanan_konseling_form.kamis}} Kamis</p>
-            <p>{{pelayanan_konseling_form.jumat}} Jumat</p>
-            <p>{{pelayanan_konseling_form.sabtu}} Sabtu</p>
-            <p>{{pelayanan_konseling_form.minggu}} Minggu</p>
+	<div class="flex justify-center h-max items-center">
+        <iframe name="votar" style="display:none;"></iframe>
+		<form class="form-konseling" action="" method="POST" id="tembak_dbKonseling" target="votar">
+			{% csrf_token %}
+			<div class="flex justify-center">
+				<div class=" bg-yellow-300 p-3 rounded-2xl">
+					<div class="flex flex-col">
+						<p class="flex justify-center"><b>Masukan Nama</b></p>
+						{{pelayanan_konseling_form.nama}}
+					</div>
+					<div class="flex flex-col">
+						<p class="flex justify-center"><b>Status</b></p>
+						{{pelayanan_konseling_form.status_user}}
+					</div>
+					<div class="flex flex-col">
+						<p class="flex justify-center"><b>Email</b></p>
+						{{pelayanan_konseling_form.email}}
+					</div>
+					<div class="flex flex-col">
+						<p class="flex justify-center"><b>Bentuk Konseling yang Diinginkan</b></p>
+						{{pelayanan_konseling_form.bentuk_konseling}}
+					</div>
+					<div>
+						<p class="flex justify-center"><b>Isi Keluhan</b></p>
+						{{pelayanan_konseling_form.keluhan_konseling}}
+					</div>
+					<div>
+						<p class="flex justify-center"><b>Preferensi Hari Konseling</b></p>
+						<p>{{pelayanan_konseling_form.senin}} Senin</p>
+						<p>{{pelayanan_konseling_form.selasa}} Selasa</p>
+						<p>{{pelayanan_konseling_form.rabu}} Rabu</p>
+						<p>{{pelayanan_konseling_form.kamis}} Kamis</p>
+						<p>{{pelayanan_konseling_form.jumat}} Jumat</p>
+						<p>{{pelayanan_konseling_form.sabtu}} Sabtu</p>
+						<p>{{pelayanan_konseling_form.minggu}} Minggu</p>
+					
+					</div>
+					<div>
+						<p class="flex justify-center"><b>Preferensi Waktu Konseling</b></p>
+						<p>{{pelayanan_konseling_form.pagi}} Pagi</p>
+						<p>{{pelayanan_konseling_form.siang}} Siang</p>
+						<p>{{pelayanan_konseling_form.sore}} Sore</p>
+						<p>{{pelayanan_konseling_form.malam}} Malam</p>
+					</div>
+					<div class="flex flex-col items-center">
+						<p class="flex justify-center"><b>Nomor Telepon</b></p>
+						{{pelayanan_konseling_form.noHP}}
+					</div>
+                    <div class="flex justify-center">
+                        <input class="p-2 m-2 bg-green-300 rounded-2xl " onclick="createPelayananKonseling()" type="submit"
+                               value="Submit" class="button">
+                    </div>
+				</div>
+                
+			</div>
+            	
+		</form>	
+	</div>
+    
+    
+</div>
 
-          </div>
-            <div>
-                <p class="flex justify-center"><b>Preferensi Waktu Konseling</b></p>
-                <p>{{pelayanan_konseling_form.pagi}} Pagi</p>
-                <p>{{pelayanan_konseling_form.siang}} Siang</p>
-                <p>{{pelayanan_konseling_form.sore}} Sore</p>
-                <p>{{pelayanan_konseling_form.malam}} Malam</p>
-            </div>
-          <div class="flex flex-col">
-            <p class="flex justify-center"><b>Nomor Telepon</b></p>
-            {{pelayanan_konseling_form.noHP}}
-          </div>
-        </div>
-      </div>
-      <div class="flex justify-center">
-      <input class="p-2 m-2 bg-green-300 rounded-2xl " type="submit" value="Submit" class="button">
-      </div>
-    </form>
-    </div>
-  </div>
+<div id="modalPopUp">
 
-  <div id="modalPopUp">
+</div>
 
-  </div>
-
-  <div class=" p-4 bg-gray-300 h-fit rounded-2xl my-2">
-    <p class="font-bold text-2xl">Riwayat Konseling</p class="font-bold text-2xl">
-      <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-5 mt-8 sm:mt-5" id="logPelayananKonseling">
-      </div>
-  </div>
+<div class=" p-4 bg-gray-300 h-fit rounded-2xl my-2">
+	<p class="font-bold text-2xl">Riwayat Konseling</p class="font-bold text-2xl">
+	<div class="grid lg:grid-cols-4 md:grid-cols-3 gap-5 mt-8 sm:mt-5" id="logPelayananKonseling">
+	</div>
+</div>
 {% endblock content %}
 
 
