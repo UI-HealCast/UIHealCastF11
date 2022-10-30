@@ -14,9 +14,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='../../login/')
 def addKonseling(request):
+    userLogin = Landing.objects.get(user=request.user)
     pelayanan_konseling_form = PelayananKonselingForm()
 
     context = {
+        'isDokter': userLogin.is_doctor,
+        'isPasien': userLogin.is_patient,
         'pelayanan_konseling_form': pelayanan_konseling_form,
     }
     return render(request, 'addKonseling.html', context)
@@ -133,4 +136,9 @@ def tembakDBAjax(request):
 def show_json_konseling(request):
     user = request.user
     data = PelayananKonseling.objects.filter(user=Landing.objects.get(user=user))
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+@login_required(login_url='../../login/')
+def show_json_konseling_dokter(request):
+    data = PelayananKonseling.objects.all()
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
