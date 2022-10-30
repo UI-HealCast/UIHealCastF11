@@ -2,9 +2,20 @@
   function handleCard(){
     $("#logPelayananKonseling").empty();
     $(".form-konseling").trigger("reset");
+
+    var isDokter = document.getElementById("isDokter").value;
+    var isPasien = document.getElementById("isPasien").value;
+
+    if (isDokter == "True"){
+        var URL = "/pelayananKonseling/show_json_konseling_dokter" 
+    }
+    else {
+        var URL = "/pelayananKonseling/show_json_konseling"
+    }
+
     $.ajax({
         type: "GET",
-        url: "/pelayananKonseling/show_json_konseling",
+        url: URL,
         dataType: "json",
         success: function (resp) {
             let counter = 0;
@@ -64,6 +75,7 @@
         return false;
     }
 
+
     $.ajax({
         type: "POST",
         url: "/pelayananKonseling/tembakDBAjax/",
@@ -88,9 +100,7 @@
           csrfmiddlewaretoken: "{{ csrf_token }}",
         },
         success: function () {
-            console.log("id malam" + $("#id_malam").is(":checked"));
           handleCard();
-          document.getElementsByClassName("form-konseling").reset();
         }
         });
   }

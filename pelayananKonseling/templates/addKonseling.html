@@ -5,6 +5,8 @@
 {% endblock meta %}
 
 {% block content %}
+
+{% if isPasien %}
 <div class="h-max rounded-2xl bg-gray-300 bg-op w-full p-2 ">
 	<div class="flex justify-center h-max items-center">
         <iframe name="votar" style="display:none;"></iframe>
@@ -64,15 +66,17 @@
             	
 		</form>	
 	</div>
-    
-    
 </div>
+{% endif %}
 
 <div class=" p-4 bg-gray-300 h-fit rounded-2xl my-2">
 	<p class="font-bold text-2xl">Riwayat Konseling</p class="font-bold text-2xl">
 	<div class="grid lg:grid-cols-4 md:grid-cols-3 gap-5 mt-8 sm:mt-5" id="logPelayananKonseling">
 	</div>
 </div>
+
+<input type="hidden" id="isPasien" name="variable" value="{{isPasien}}">
+<input type="hidden" id="isDokter" name="variable" value="{{isDokter}}">
 {% endblock content %}
 
 
