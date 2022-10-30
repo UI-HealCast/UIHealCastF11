@@ -37,7 +37,18 @@
                 let msg_waktu_pagi = i.fields.pagi ? "Pagi" : "";
                 let msg_waktu_siang = i.fields.siang ? "Siang" : "";
                 let msg_waktu_sore = i.fields.sore ? "Sore" : "";
-                let msg_waktu_malam = i.fields.malam ? "Malam" : "";
+              let msg_waktu_malam = i.fields.malam ? "Malam" : "";
+              
+              let button=''
+              if (isDokter == "True") {
+                button = `
+                <a class="inline-flex items-center h-8 px-4 m-2 text-sm transition-colors duration-150 border-solid border-2 border-black rounded-lg focus:shadow-outline hover:bg-black hover:text-white"
+                href="set-konseling/${i.pk}">Ubah Status</a>
+                `
+              } else {
+                button = ""
+              }
+                
 
                 let msg_status_konseling = status_konseling ? `<p class="bg-green-200 w-fit rounded-2xl p-1">Sudah Selesai</p>` : `<p class="bg-red-500 w-fit rounded-2xl p-1">Sedang diproses</p>`
 
@@ -58,6 +69,9 @@
                                     <p><b>Status Konseling</b> : ${msg_status_konseling}</p>
                                     <p><b>Hari</b> : ${msg_hari_senin} ${msg_hari_selasa} ${msg_hari_rabu} ${msg_hari_kamis} ${msg_hari_jumat} ${msg_hari_sabtu} ${msg_hari_minggu}</p>
                                     <p><b>Waktu</b> : ${msg_waktu_pagi} ${msg_waktu_siang} ${msg_waktu_sore} ${msg_waktu_malam}</p>
+                                  </div>
+                                  <div class="flex justify-center">
+                                    ${button}
                                   </div>
                               </div>
                           </div>
