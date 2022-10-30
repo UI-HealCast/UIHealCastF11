@@ -148,3 +148,9 @@ def ubah_status(request, pk):
     data.status_konseling = not data.status_konseling
     data.save()
     return redirect('pelayananKonseling:addKonseling')
+
+def hapus(request, pk):
+    data = PelayananKonseling.objects.get(id=pk)
+    data.delete()
+    return JsonResponse({'status': 'success'})
+

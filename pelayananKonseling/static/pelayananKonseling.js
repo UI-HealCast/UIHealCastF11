@@ -44,12 +44,14 @@
                 button = `
                 <a class="inline-flex items-center h-8 px-4 m-2 text-sm transition-colors duration-150 border-solid border-2 border-black rounded-lg focus:shadow-outline hover:bg-black hover:text-white"
                 href="set-konseling/${i.pk}">Ubah Status</a>
+
+                <a class="inline-flex items-center h-8 px-4 m-2 text-sm transition-colors duration-150 border-solid border-2 border-black rounded-lg focus:shadow-outline hover:bg-black hover:text-white"
+                onclick="deleteRiwayat(${i.pk});">Hapus Riwayat</a>
                 `
               } else {
                 button = ""
               }
                 
-
                 let msg_status_konseling = status_konseling ? `<p class="bg-green-200 w-fit rounded-2xl p-1">Sudah Selesai</p>` : `<p class="bg-red-500 w-fit rounded-2xl p-1">Sedang diproses</p>`
 
                 let tab = `
@@ -121,4 +123,14 @@
 
   $(document).ready(function () {
     handleCard();
-})
+  })
+
+function deleteRiwayat(id) {
+		$.ajax({
+			url: `./delete/${id}`,
+			dataType: "json",
+			success: function () {
+				$(`#${id}`).remove();
+			}
+		})
+	}
