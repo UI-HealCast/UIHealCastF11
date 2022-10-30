@@ -14,14 +14,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='../../login/')
 def addKonseling(request):
-    # if request.method == 'POST':
-    #     form = PelayananKonselingForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return HttpResponseRedirect('/pelayananKonseling/')
-    # else:
-    #     form = PelayananKonselingForm()
-    # return render(request, 'pelayananKonseling/addKonseling.html', {'form': form})
     pelayanan_konseling_form = PelayananKonselingForm()
 
     context = {
