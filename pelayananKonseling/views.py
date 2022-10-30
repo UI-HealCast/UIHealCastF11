@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.decorators import login_required
@@ -142,3 +142,9 @@ def show_json_konseling(request):
 def show_json_konseling_dokter(request):
     data = PelayananKonseling.objects.all()
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+def ubah_status(request, pk):
+    data = PelayananKonseling.objects.get(pk=pk)
+    data.status_konseling = not data.status_konseling
+    data.save()
+    return redirect('pelayananKonseling:addKonseling')
