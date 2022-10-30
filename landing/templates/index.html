@@ -1,15 +1,35 @@
 {% extends 'base.html' %}
 
 {% block meta %}
+{% load static %}
 <title>Hello, world!</title>
 {% endblock meta %}
 
 {% block content %}
-<div class="h-screen rounded-2xl bg-gray-300 bg-op w-full">
-  <p>1123213</p>
-</div>
-{% endblock content %}
+<div class="h-fit rounded-xl bg-gray-300 grid grid-cols-3 gap-10">
+	<div class="flex justify-center items-center">
+		<a href="{% url 'pelayananDokter:addKeluhan' %}">
+			<button type="button"
+					class="focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
+				Daftar Berobat
+			</button>
+		</a>
 
+		<a href="{% url 'pelayananKonseling:addKonseling' %}">
+			<button type="button"
+					class="focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
+				Daftar Konseling
+			</button>
+		</a>
+	</div>
+
+	<div class="col-span-2">
+		<img class="object-contain h-full w-full rounded-r-lg" src='{% static "/test1.svg" %}' alt="home"/>
+	</div>
+
+</div>
+
+{% endblock content %}
 
 
 {% block script %}
