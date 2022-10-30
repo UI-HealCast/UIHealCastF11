@@ -88,6 +88,10 @@ jobs:
         key: pip-${{ github.job }}-${{ hashFiles('requirements.txt') }}
         restore-keys: |
           pip-
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    - name: Collect static files
+      run: python manage.py collectstatic --no-input
     - name: Install coverage
       run: pip install coverage
     - name: Download unit test coverage
@@ -111,10 +115,6 @@ jobs:
       with:
         name: coverage
         path: htmlcov/
-    - name: Generate Report
-      run: |
-        pip install coverage
-        coverage run -m unittest
     - name: Upload Coverage to Codecov
       uses: codecov/codecov-action@v2
   
