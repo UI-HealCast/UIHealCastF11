@@ -2,20 +2,9 @@
   function handleCard(){
     $("#logPelayananKonseling").empty();
     $(".form-konseling").trigger("reset");
-
-    var isDokter = document.getElementById("isDokter").value;
-    var isPasien = document.getElementById("isPasien").value;
-
-    if (isDokter == "True"){
-        var URL = "/pelayananKonseling/show_json_konseling_dokter" 
-    }
-    else {
-        var URL = "/pelayananKonseling/show_json_konseling"
-    }
-
     $.ajax({
         type: "GET",
-        url: URL,
+        url: "/pelayananKonseling/show_json_konseling",
         dataType: "json",
         success: function (resp) {
             let counter = 0;
@@ -37,21 +26,8 @@
                 let msg_waktu_pagi = i.fields.pagi ? "Pagi" : "";
                 let msg_waktu_siang = i.fields.siang ? "Siang" : "";
                 let msg_waktu_sore = i.fields.sore ? "Sore" : "";
-              let msg_waktu_malam = i.fields.malam ? "Malam" : "";
-              
-              let button=''
-              if (isDokter == "True") {
-                button = `
-                <a class="inline-flex items-center h-8 px-4 m-2 text-sm transition-colors duration-150 border-solid border-2 border-black rounded-lg focus:shadow-outline hover:bg-black hover:text-white"
-                href="set-konseling/${i.pk}">Ubah Status</a>
+                let msg_waktu_malam = i.fields.malam ? "Malam" : "";
 
-                <a class="inline-flex items-center h-8 px-4 m-2 text-sm transition-colors duration-150 border-solid border-2 border-black rounded-lg focus:shadow-outline hover:bg-black hover:text-white"
-                onclick="deleteRiwayat(${i.pk});">Hapus Riwayat</a>
-                `
-              } else {
-                button = ""
-              }
-                
                 let msg_status_konseling = status_konseling ? `<p class="bg-green-200 w-fit rounded-2xl p-1">Sudah Selesai</p>` : `<p class="bg-red-500 w-fit rounded-2xl p-1">Sedang diproses</p>`
 
                 let tab = `
@@ -72,9 +48,6 @@
                                     <p><b>Hari</b> : ${msg_hari_senin} ${msg_hari_selasa} ${msg_hari_rabu} ${msg_hari_kamis} ${msg_hari_jumat} ${msg_hari_sabtu} ${msg_hari_minggu}</p>
                                     <p><b>Waktu</b> : ${msg_waktu_pagi} ${msg_waktu_siang} ${msg_waktu_sore} ${msg_waktu_malam}</p>
                                   </div>
-                                  <div class="flex justify-center">
-                                    ${button}
-                                  </div>
                               </div>
                           </div>
                           `;
@@ -90,7 +63,6 @@
     if (form.checkValidity() === false) {
         return false;
     }
-
 
     $.ajax({
         type: "POST",
@@ -116,21 +88,13 @@
           csrfmiddlewaretoken: "{{ csrf_token }}",
         },
         success: function () {
+            console.log("id malam" + $("#id_malam").is(":checked"));
           handleCard();
+          document.getElementsByClassName("form-konseling").reset();
         }
         });
   }
 
   $(document).ready(function () {
     handleCard();
-  })
-
-function deleteRiwayat(id) {
-		$.ajax({
-			url: `./delete/${id}`,
-			dataType: "json",
-			success: function () {
-				$(`#${id}`).remove();
-			}
-		})
-	}
+})

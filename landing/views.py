@@ -14,6 +14,7 @@ from pelayananDokter.models import Layan
 from django.core import serializers
 from django.http.response import JsonResponse, HttpResponse, HttpResponseNotFound
 from django.contrib.auth.decorators import login_required
+from pelayananKonseling.models import PelayananKonseling
 
 
 def index(request):
@@ -181,3 +182,19 @@ def modif_hasil(request):
         dataMasuk.status = not dataMasuk.status
         dataMasuk.save()
         return JsonResponse({"instance": "Proyek Dibuat"},status=200)
+
+@login_required(login_url='../../login/')
+def show_json_konseling_dokter(request):
+    data = PelayananKonseling.objects.all()
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+def ubah_status(request, pk):
+    data = PelayananKonseling.objects.get(pk=pk)
+    data.status_konseling = not data.status_konseling
+    data.save()
+    return redirect('landing:menuPasien')
+
+def hapus(request, pk):
+    data = PelayananKonseling.objects.get(id=pk)
+    data.delete()
+    return JsonResponse({'status': 'success'})
