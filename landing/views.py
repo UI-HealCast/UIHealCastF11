@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from landing.models import Landing
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from pelayananDokter.models import Layan
@@ -96,9 +97,13 @@ def getUser(test):
     return Landing.objects.get(user=test.pk)
 
 def list_pasien(request):
-    data = Layan.objects.all()
-    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
-
+    data = Landing.objects.get(user=request.user)
+    if data.is_doctor:
+        data = Layan.objects.filter(hasilPeriksa="-",dokter=data)
+        return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+    else:
+        return HttpResponseNotFound("You Don't Belong Here")
+        
 @login_required(login_url='../../login/')
 def menu_pasien(request):
     data = Landing.objects.get(user=request.user)
@@ -117,6 +122,7 @@ def menu_pasien(request):
             'statDok' : statusDokter,
             'statApo' : statusApotek,
             'statAdm' : statusAdmin,
+            'ready' : data.doctorReady,
         }
         return render(request, 'menuPasien.html', context)
     else:
@@ -143,13 +149,35 @@ def edit_pasien(request, pk):
             'pasien'  : dataPasien,
             'masuk' : pk,
         }
-    
-    if request.method == 'POST':
-        desc = request.POST.get('hasil')
-        print(desc)
     return render(request, 'editPasien.html', context)
 
-
 def show_pasien(request, pk):
-    data = Layan.objects.filter(pk=pk)
+    data = Landing.objects.get(user=request.user)
+    if data.is_doctor:
+        data = Layan.objects.filter(pk=pk)
+        return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+    else:
+        return HttpResponseNotFound("You Don't Belong Here")  
+
+def show_dokter(request):
+    data = Landing.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+@csrf_exempt
+def change_status(request):
+     if request.method == "PATCH":
+        task = Landing.objects.get(user=request.user)
+        task.doctorReady = not (task.doctorReady)
+        task.save()
+        return JsonResponse({"instance": "Proyek Dibuat"},status=200)
+
+@csrf_exempt
+def modif_hasil(request):
+    if request.method == 'POST':
+        desc = request.POST.get('hasil')
+        peka = request.POST.get('peka')
+        dataMasuk = Layan.objects.get(pk=peka)
+        dataMasuk.hasilPeriksa = desc
+        dataMasuk.status = not dataMasuk.status
+        dataMasuk.save()
+        return JsonResponse({"instance": "Proyek Dibuat"},status=200)

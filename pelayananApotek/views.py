@@ -1,4 +1,3 @@
-from http.client import HTTPResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from pelayananApotek.models import Obat
 from django.shortcuts import render
@@ -58,7 +57,7 @@ def show_patient_json(request):
 
 def change_status(request,pk):
     pasien = Layan.objects.get(id=pk)
-    pasien.status = True
+    pasien.statusObat = True
     pasien.save()
     return HttpResponseRedirect(reverse('pelayananApotek:show_patient'))
 

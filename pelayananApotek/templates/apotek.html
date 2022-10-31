@@ -192,9 +192,9 @@ $(document).on("submit", "#form-add-obat", function (e){
             <td>${data.fields.description}</td>
             <td>${data.fields.harga}</td>
             <td id="status-obat-${i.pk}">${status}
-                <button class="bg-green-500 rounded-2xl p-2 text-white font-bold delete" onclick="change_status_obat(${i.pk})">
+                <button class="bg-green-500 hover:bg-green-700 rounded-2xl p-2 text-white font-bold delete" onclick="change_status_obat(${i.pk})">
                         Ubah</button></td>
-            <td><button class="bg-green-500 rounded-2xl p-2 text-white font-bold delete" onclick="delete_obat(${data.pk})">
+            <td><button class="bg-red-500 hover:bg-red-700 rounded-2xl p-2 text-white font-bold delete" onclick="delete_obat(${data.pk})">
                 Remove</button></td></tr>`
         $("#table-obat tbody").prepend(result);
         alert("Data berhasil ditambahkan")
