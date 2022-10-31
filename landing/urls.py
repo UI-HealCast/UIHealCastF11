@@ -1,6 +1,5 @@
 from django.urls import path
-from landing.views import change_status, index, menu_pasien, edit_pasien, modif_hasil, show_dokter, show_pasien
-from landing.views import login_user, register, logout_user, list_pasien
+from landing.views import *
 
 app_name = 'landing'
 
@@ -16,5 +15,7 @@ urlpatterns = [
     path('show-dokter/', show_dokter, name='showDokter'),
     path('change-status/', change_status, name='changeStatus'),
     path('modif-hasil/', modif_hasil, name='modifHasil'),
-
+    path('show_json_konseling_dokter/', show_json_konseling_dokter, name='show_json_konseling_dokter'),
+    path('menu-pasien/set-konseling/<int:pk>', ubah_status, name='ubah_status'),
+    path('menu-pasien/delete/<int:pk>', hapus, name='hapus'),   
 ]
