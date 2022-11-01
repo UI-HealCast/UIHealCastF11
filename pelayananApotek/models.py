@@ -5,7 +5,7 @@ from landing.models import Landing
 
 # Create your models here.
 class Obat(models.Model):
-    nama_obat = models.CharField(max_length=255)
-    harga = models.IntegerField()
+    nama_obat = models.CharField(max_length=255, null=True)
+    harga = models.IntegerField(null=True)
     status_obat = models.BooleanField(null=True, blank=True)
-    description = models.TextField()
+    description = models.TextField(null=True)

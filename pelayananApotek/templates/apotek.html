@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block meta %}
 <title>Pelayanan Apotek</title>
 {% endblock meta %}
@@ -20,12 +20,10 @@
     </div>
     
     <button class="bg-yellow-300 hover:bg-yellow-800 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
-    id = "tambah-obat" >Update Data Obat</button>
+    id = "tambah-obat" >Update Obat</button>
     <button class="bg-yellow-300 hover:bg-yellow-800 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
-    id = "ubah-status-pasien">Ubah Status Pasien</button>
+    id = "ubah-status-pasien">Update Prescription</button>
     
-    
-
     
     <div id="add-obat">
         <form class="form-add-obat" action="" method="POST" id="form-add-obat">
@@ -34,18 +32,15 @@
               <div class=" bg-yellow-300 p-3 rounded-2xl">
                 <div class="flex flex-col">
                   <p class="flex justify-center">Nama Obat</p>
-                  <input class="form-control w-96 px-3 py-2 rounded-md border border-slate-400" type="text" placeholder="Nama obat"
-                            name="nama_obat" id="nama_obat">
+                  {{form.nama_obat}}
                 </div>
                 <div>
                   <p class="flex justify-center">Deskripsi</p>
-                  <input class="form-control w-96 px-3 py-2 rounded-md border border-slate-400" type="text" placeholder="Deskripsi"
-                            name="description" id="description">
+                  {{form.description}}
                 </div>
                 <div class="flex flex-col">
                   <p class="flex justify-center">Harga</p>
-                  <input class="form-control w-96 px-3 py-2 rounded-md border border-slate-400" type="text" placeholder="Harga"
-                            name="harga" id="harga">
+                  {{form.harga}}
                 </div>
               </div>
             </div>
@@ -121,94 +116,8 @@
 
 {% block script %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static '/apotek.js' %}"></script>
 <script>
-function show_data_obat() {
-        $.ajax({
-            url: "{% url 'pelayananApotek:show_obat_json' %}",
-            type: "GET",
-            dataType: "json",
-            success: function(data){
-
-            for (i of data){
-                status = i.fields.status_obat ? "Tersedia" : "Tidak Tersedia";
-                result = `
-                <tr id="${i.pk}"><td>${i.fields.nama_obat}</td>
-                    <td>${i.fields.description}</td>
-                    <td>${i.fields.harga}</td>
-                    <td id="status-obat-${i.pk}">${status}
-                        <button class="bg-green-500 hover:bg-green-700 rounded-2xl p-2 text-white font-bold delete" onclick="change_status_obat(${i.pk})">
-                        Ubah</button>
-                    </td>
-                    <td><button class="bg-red-500 rounded-2xl hover:bg-red-700 p-2 text-white font-bold delete" onclick="delete_obat(${i.pk})">
-                        Remove</button></td></tr>`
-
-                $("#table-obat tbody").prepend(result);
-            }   
-            },
-            error: function(data) {
-                console.log('Error')
-            }
-        })
-};
-function delete_obat(pk){
-        $.ajax({
-            url: `/pelayananApotek/delete_obat/${pk}`,
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            type: "DELETE",
-            success: function(data) {
-                $(`#${pk}`).remove()
-            }
-        })
-    };
-function change_status_obat(pk){
-    $.ajax({
-        url: `/pelayananApotek/change_status_obat/${pk}`,
-        success: function(data) {
-            status = data === "True" ? "Tersedia" : "Tidak Tersedia";
-            $("#status-obat-"+pk).replaceWith(`<td id="status-obat-${pk}">${status}
-                        <button class="bg-green-500 rounded-2xl p-2 text-white font-bold delete" onclick="change_status_obat(${pk})">
-                        Ubah</button>`);
-        }
-    })
-};
-    
-$(document).on("submit", "#form-add-obat", function (e){
-    e.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: "{% url 'pelayananApotek:add_obat' %}",
-      data: {
-        nama_obat: $("#nama_obat").val(),
-        description: $("#description").val(),
-        harga: $("#harga").val(),
-        status_obat: $("#status_obat").val(),
-        csrfmiddlewaretoken: "{{ csrf_token }}"
-      },
-      dataType: "json",
-      success: function (data) {
-        status = data.fields.status_obat ? "Tersedia" : "Tidak Tersedia";
-        result = `
-        <tr id="${data.pk}"><td>${data.fields.nama_obat}</td>
-            <td>${data.fields.description}</td>
-            <td>${data.fields.harga}</td>
-            <td id="status-obat-${i.pk}">${status}
-                <button class="bg-green-500 hover:bg-green-700 rounded-2xl p-2 text-white font-bold delete" onclick="change_status_obat(${i.pk})">
-                        Ubah</button></td>
-            <td><button class="bg-red-500 hover:bg-red-700 rounded-2xl p-2 text-white font-bold delete" onclick="delete_obat(${data.pk})">
-                Remove</button></td></tr>`
-        $("#table-obat tbody").prepend(result);
-        alert("Data berhasil ditambahkan")
-        $("#form-add-obat").each(function(){
-        this.reset();
-        });
-      },
-    });
-  });
-
-  $(document).ready(function () {
-        show_data_obat();
-    });
-
   $(document).ready(function(){
     $("#add-obat").hide();
     $("#daftar-pasien").hide();

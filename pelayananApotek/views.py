@@ -3,16 +3,24 @@ from pelayananApotek.models import Obat
 from django.shortcuts import render
 from django.http import JsonResponse
 from pelayananDokter.models import Layan
+from landing.models import Landing
 from django.urls import reverse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
-import json
+from pelayananApotek.forms import ObatForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 def show_obat(request):
+    userLogin = Landing.objects.get(user=request.user)
     data_obat = Obat.objects.all().values()
+    form = ObatForm()
+    # form.fields["apoteker"].queryset = Landing.objects.filter(is_apotek=True)
+  
     context = {
+        'adalahApotek': userLogin.is_apotek,
         'list_obat' : data_obat,
+        'form' : form
     }
     return render(request, "apotek.html", context)
 
@@ -21,6 +29,7 @@ def show_obat_json(request):
     response = serializers.serialize('json', data_obat)
     return HttpResponse(response,content_type='application/json')
 
+@csrf_exempt
 def add_obat(request):
     if request.method == 'POST':
         nama_obat = request.POST.get('nama_obat')
@@ -28,7 +37,7 @@ def add_obat(request):
         status_obat = True
         description = request.POST.get('description')
 
-        obat = Obat(nama_obat=nama_obat,
+        obat = Obat.objects.create(nama_obat=nama_obat,
                     harga=harga,
                     status_obat=status_obat,
                     description=description)
@@ -45,7 +54,7 @@ def add_obat(request):
         return JsonResponse(result)
 
 def show_patient(request):
-    data_pasien = Layan.objects.filter(status=False).values()
+    data_pasien = Layan.objects.filter(statusObat=False).values()
     context = {
         'list_pasien' : data_pasien,
     }
