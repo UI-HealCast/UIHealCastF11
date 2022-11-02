@@ -77,19 +77,26 @@
         
     </center>
     <div class="min-h-screen gap-3 flex-wrap flex justify-center items-center" id="status-obat-pasien"> 
+      <div class="grid grid-cols-1 gap-1 mx-auto place-items-center">
         {% if adalahPasien %} 
-            <h1 class="my-4 text-3xl leading-tight">
-                {% if userLogin.statusObat %} 
-                    Obat sudah bisa diambil
-                {% else %} 
-                    Obat belum bisa diambil
-                {% endif %}
-            </h1>
+          {% if pasien.statusObat %} 
+              <img class="w-96" alt = "sign" src="https://user-images.githubusercontent.com/112607944/199516939-09ff4022-a885-4fac-96d0-c46ff75cc15b.png">
+              <h1 class="my-4 text-3xl font-bold leading-tight">
+                Obat sudah bisa diambil 
+              </h1>
+          {% else %} 
+              <img class="w-96" alt = "sign" src="https://user-images.githubusercontent.com/112607944/199516650-268a81d9-1352-48e3-928e-f5463c3a839d.png">
+              <h1 class="my-4 text-3xl font-bold leading-tight">
+                Maaf, obat belum bisa diambil 
+              </h1>
+          {% endif %}
         {% else %} 
-            <h1 class="my-4 text-3xl leading-tight">
-                Anda tidak memiliki resep obat
-            </h1>
+          <img class="w-96" alt = "sign" src="https://user-images.githubusercontent.com/112607944/199516650-268a81d9-1352-48e3-928e-f5463c3a839d.png">
+          <h1 class="my-4 text-3xl font-bold leading-tight">
+              Anda tidak memiliki resep obat
+          </h1>
         {% endif %}
+      </div>
 
     </div>
 </div>
