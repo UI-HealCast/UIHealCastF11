@@ -37,7 +37,7 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function () {
-        alert("Data berhasil ditambahkan ke file JSON")
+        alert("Selamat, Data berhasil ditambahkan")
         window.location.replace(" ")
       },
     });
