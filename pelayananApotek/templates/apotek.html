@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block meta %}
-<title>Pelayanan Apotek</title>
+    <title>Pelayanan Apotek</title>
 {% endblock meta %}
 
 {% block content %}
 <div class="container mx-auto px-8">
     <center>
     <div id="starter">
-    <div class="w-full md:w-3/5 py-6">
-        <img class="w-full md:w-4/5 z-50 object-right" src="https://user-images.githubusercontent.com/112607944/198461703-7d164868-f6d9-412e-af25-69fdd9a1da00.png" />
+        <div class="w-full md:w-3/5 py-6">
+            <img class="w-full md:w-4/5 z-50 object-right" src="https://user-images.githubusercontent.com/112607944/198461703-7d164868-f6d9-412e-af25-69fdd9a1da00.png" />
         </div>
 
-    <div class="flex flex-col w-full md:w-2/5 justify-center text-center">
-    <h1 class="my-4 text-5xl font-bold leading-tight">
-        Apotek
-      </h1>
-    </div>
+        <div class="flex flex-col w-full md:w-2/5 justify-center text-center">
+            <h1 class="my-4 text-5xl font-bold leading-tight">
+                Apotek
+            </h1>
+        </div>
     </div>
     
     <button class="bg-yellow-300 hover:bg-yellow-800 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
     id = "tambah-obat" >Update Obat</button>
     <button class="bg-yellow-300 hover:bg-yellow-800 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
-    id = "ubah-status-pasien">Update Prescription</button>
+    id = "ubah-status-pasien">Update Status Resep</button>
     
     
     <div id="add-obat">
@@ -45,9 +45,9 @@
               </div>
             </div>
             <div class="flex justify-center">
-            <input class="p-2 m-2 bg-green-500 rounded-2xl hover:bg-green-700" type="submit" value="Submit" class="button">
+                <input class="p-2 m-2 bg-green-500 rounded-2xl hover:bg-green-700" type="submit" value="Submit" class="button">
             </div>
-          </form>
+        </form>
          
      
         <div class="flex flex-col" id="tabel">
@@ -83,33 +83,10 @@
             </div>
           </div>
         
-        
-
     </center>
-    <div class="container px-5 py-24 mx-auto" id="daftar-pasien">
-   
-    <div class="flex flex-wrap -m-4 text-center">
-        {% for user in list_pasien %}
-        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-          <div class="border-2 border-gray-600 px-4 py-6 rounded-lg transform transition duration-500 hover:scale-110">
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="text-indigo-500 w-12 h-12 mb-3 inline-block" viewBox="0 0 24 24">
-              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
-            </svg>
-            <h2 class="title-font font-medium text-3xl text-gray-900">{{user.nama}}</h2>
-            <p class="leading-relaxed">{{user.username}}</p>
-            <div class="m-2">
-                <a role='button' href="{% url 'pelayananApotek:change_status' user.id %}" 
-                                class = "text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700">Change Status</a>
-                </div>
-          </div>
-        </div>
-        
-      {% endfor %}
-      
-    
-  </div>
+    <div class="min-h-screen gap-3 flex-wrap flex justify-center items-center" id="daftar-pasien">
+
+    </div>
 </div>
 {% endblock content %}
 

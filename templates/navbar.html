@@ -29,8 +29,13 @@
       </div>
             </li>
             <li class="mr-3">
-                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Apotek</a>
-            </li>
+              {% if statApo %}
+                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="{% url 'pelayananApotek:show_obat' %}">Apotek</a>
+              {% else %}
+                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="{% url 'pelayananApotek:show_obat_selain_apoteker' %}">Apotek</a>
+              {% endif %}
+
+              </li>
             <li class="mr-3">
                 <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Pembayaran</a>
             </li>

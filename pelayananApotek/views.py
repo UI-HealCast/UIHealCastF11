@@ -15,7 +15,6 @@ def show_obat(request):
     userLogin = Landing.objects.get(user=request.user)
     data_obat = Obat.objects.all().values()
     form = ObatForm()
-    # form.fields["apoteker"].queryset = Landing.objects.filter(is_apotek=True)
   
     context = {
         'adalahApotek': userLogin.is_apotek,
@@ -23,6 +22,22 @@ def show_obat(request):
         'form' : form
     }
     return render(request, "apotek.html", context)
+
+def show_obat_selain_apoteker(request):
+    try:
+        userLogin = Landing.objects.get(user=request.user)
+        data_obat = Obat.objects.all().values()
+        context = {
+            'userLogin':userLogin,
+            'adalahPasien':userLogin.is_patient,
+            'list_obat' : data_obat,
+        }
+    except:
+        data_obat = Obat.objects.all().values()
+        context = {
+            'list_obat' : data_obat,
+        }
+    return render(request, "apotek_justview.html", context)
 
 def show_obat_json(request):
     data_obat = Obat.objects.all()
@@ -61,14 +76,15 @@ def show_patient(request):
     return render(request, "apotek.html", context)
 
 def show_patient_json(request):
-    pasien = Layan.objects.filter(is_patient=True)
-    return HttpResponse(serializers.serialize("json", pasien), content_type="application/json")
+    pasien = Layan.objects.filter(statusObat=False)
+    response = serializers.serialize("json", pasien)
+    return HttpResponse(response, content_type="application/json")
 
 def change_status(request,pk):
     pasien = Layan.objects.get(id=pk)
-    pasien.statusObat = True
+    pasien.statusObat = not(pasien.statusObat)
     pasien.save()
-    return HttpResponseRedirect(reverse('pelayananApotek:show_patient'))
+    return HttpResponse(pasien.statusObat)
 
 @csrf_exempt
 def delete_obat(request, pk):
