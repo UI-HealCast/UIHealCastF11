@@ -9,24 +9,24 @@
   <div class="flex justify-center h-full items-center">
   <form class="form-curhat" action="" method="POST" id="tembak_db">
     {% csrf_token %}
-    <div class="flex justify-center">
+    <div class="flex justify-center w-80">
       <div class=" bg-yellow-300 p-3 rounded-2xl">
-        <div class="flex flex-col">
+        <div class="flex flex-col w-40 lg:w-80 md:w-60">
           <p class="flex justify-center">Pilih Dokter</p>
           {{form.dokter}}
         </div>
-        <div>
+        <div class="flex flex-col w-40 lg:w-80 md:w-60">
           <p class="flex justify-center">Isi Keluhan</p>
           {{form.keluhan}}
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col w-40 lg:w-80 md:w-60">
           <p class="flex justify-center">Nomor Telepon</p>
           {{form.noHP}}
         </div>
       </div>
     </div>
     <div class="flex justify-center">
-    <input class="p-2 m-2 bg-green-300 rounded-2xl " type="submit" value="Submit" class="button">
+      <input class="p-2 m-2 bg-green-300 rounded-2xl " type="submit" value="Submit" class="button">
     </div>
   </form>
   </div>

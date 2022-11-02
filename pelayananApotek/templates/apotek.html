@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+    <title>Pelayanan Apotek</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="container mx-auto px-8">
+    <center>
+    <div id="starter">
+        <div class="w-full md:w-3/5 py-6">
+            <img class="w-full md:w-4/5 z-50 object-right" src="https://user-images.githubusercontent.com/112607944/198461703-7d164868-f6d9-412e-af25-69fdd9a1da00.png" />
+        </div>
+
+        <div class="flex flex-col w-full md:w-2/5 justify-center text-center">
+            <h1 class="my-4 text-5xl font-bold leading-tight">
+                Apotek
+            </h1>
+        </div>
+    </div>
+    
+    <button class="bg-yellow-300 hover:bg-yellow-800 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
+    id = "tambah-obat" >Update Obat</button>
+    <button class="bg-yellow-300 hover:bg-yellow-800 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
+    id = "ubah-status-pasien">Update Status Resep</button>
+    
+    
+    <div id="add-obat">
+        <form class="form-add-obat" action="" method="POST" id="form-add-obat">
+            {% csrf_token %}
+            <div class="flex justify-center">
+              <div class=" bg-yellow-300 p-3 rounded-2xl">
+                <div class="flex flex-col">
+                  <p class="flex justify-center">Nama Obat</p>
+                  {{form.nama_obat}}
+                </div>
+                <div>
+                  <p class="flex justify-center">Deskripsi</p>
+                  {{form.description}}
+                </div>
+                <div class="flex flex-col">
+                  <p class="flex justify-center">Harga</p>
+                  {{form.harga}}
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-center">
+                <input class="p-2 m-2 bg-green-500 rounded-2xl hover:bg-green-700" type="submit" value="Submit" class="button">
+            </div>
+        </form>
+         
+     
+        <div class="flex flex-col" id="tabel">
+
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                
+                  <table class="min-w-full" id="table-obat">
+                    <thead class="bg-white border-b">
+                      <tr>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                          Nama Obat
+                        </th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                          Deskripsi
+                        </th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                          Harga
+                        </th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                          Status Obat
+                        </th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                    </tbody>
+                  </table>
+                </div>
+          
+            </div>
+          </div>
+        
+    </center>
+    <div class="min-h-screen gap-3 flex-wrap flex justify-center items-center" id="daftar-pasien">
+
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static '/apotek.js' %}"></script>
+<script>
+  $(document).ready(function(){
+    $("#add-obat").hide();
+    $("#daftar-pasien").hide();
+
+  $("#tambah-obat").click(function(){
+    $("#daftar-pasien").hide();
+    $("#starter").hide(500);
+    $("#add-obat").toggle(800);
+  });
+  $("#ubah-status-pasien").click(function(){
+    $("#add-obat").hide();
+    $("#starter").hide(500);
+    $("#daftar-pasien").toggle(800);
+  });
+});
+   </script>
+   
+{% endblock script %}

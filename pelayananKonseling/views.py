@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.decorators import login_required
@@ -8,18 +8,30 @@ from landing.models import Landing
 from .forms import *
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from pelayananDokter.views import isPatient, isDoctor, isApotek, isAdmin
 
 
 # Create your views here.
 
 @login_required(login_url='../../login/')
 def addKonseling(request):
-    userLogin = Landing.objects.get(user=request.user)
     pelayanan_konseling_form = PelayananKonselingForm()
+    data = Landing.objects.get(user=request.user)
+    statusAdmin = False
+    statusApotek = False
+    statusDokter = False
+    statusPatient = False
+    if request.user.username != "":
+        statusAdmin = isAdmin(data)
+        statusApotek = isApotek(data)
+        statusDokter = isDoctor(data)
+        statusPatient = isPatient(data)
 
     context = {
-        'isDokter': userLogin.is_doctor,
-        'isPasien': userLogin.is_patient,
+        'statPat' : statusPatient,
+        'statDok' : statusDokter,
+        'statApo' : statusApotek,
+        'statAdm' : statusAdmin,
         'pelayanan_konseling_form': pelayanan_konseling_form,
     }
     return render(request, 'addKonseling.html', context)
@@ -137,20 +149,3 @@ def show_json_konseling(request):
     user = request.user
     data = PelayananKonseling.objects.filter(user=Landing.objects.get(user=user))
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
-
-@login_required(login_url='../../login/')
-def show_json_konseling_dokter(request):
-    data = PelayananKonseling.objects.all()
-    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
-
-def ubah_status(request, pk):
-    data = PelayananKonseling.objects.get(pk=pk)
-    data.status_konseling = not data.status_konseling
-    data.save()
-    return redirect('pelayananKonseling:addKonseling')
-
-def hapus(request, pk):
-    data = PelayananKonseling.objects.get(id=pk)
-    data.delete()
-    return JsonResponse({'status': 'success'})
-
