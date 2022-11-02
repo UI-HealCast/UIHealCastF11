@@ -12,7 +12,6 @@ from pelayananDokter.views import isPatient, isDoctor, isApotek, isAdmin
 
 
 # Create your views here.
-
 @login_required(login_url='../../login/')
 def addKonseling(request):
     pelayanan_konseling_form = PelayananKonselingForm()
@@ -28,13 +27,14 @@ def addKonseling(request):
         statusPatient = isPatient(data)
 
     context = {
-        'statPat' : statusPatient,
-        'statDok' : statusDokter,
-        'statApo' : statusApotek,
-        'statAdm' : statusAdmin,
+        'statPat': statusPatient,
+        'statDok': statusDokter,
+        'statApo': statusApotek,
+        'statAdm': statusAdmin,
         'pelayanan_konseling_form': pelayanan_konseling_form,
     }
     return render(request, 'addKonseling.html', context)
+
 
 @csrf_exempt
 def tembakDBAjax(request):
@@ -48,7 +48,7 @@ def tembakDBAjax(request):
         user = Landing.objects.get(user=request.user)
         username = request.user.username
         status_konseling = False
-        
+
         senin = request.POST.get('senin')
         selasa = request.POST.get('selasa')
         rabu = request.POST.get('rabu')
@@ -61,8 +61,6 @@ def tembakDBAjax(request):
         siang = request.POST.get('siang')
         sore = request.POST.get('sore')
         malam = request.POST.get('malam')
-
-        
 
         if senin == 'true':
             senin = True
@@ -142,10 +140,12 @@ def tembakDBAjax(request):
             malam=malam,
         )
 
-        return JsonResponse({"status": "succes"},status=200)
+        return JsonResponse({"status": "succes"}, status=200)
+
 
 @login_required(login_url='../../login/')
 def show_json_konseling(request):
     user = request.user
-    data = PelayananKonseling.objects.filter(user=Landing.objects.get(user=user))
+    data = PelayananKonseling.objects.filter(
+        user=Landing.objects.get(user=user))
     return HttpResponse(serializers.serialize('json', data), content_type='application/json')
