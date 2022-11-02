@@ -54,13 +54,6 @@
             {% if statDok %}
               <a href="{% url 'landing:menuPasien' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Menu Pasien</a>
             {% endif %}
-            {% if statApo %}
-              <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Konfirmasi Obat</a>
-            {% endif %}
-            {% if statAdm %}
-              <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Konfirmasi Pembayaran</a>
-            {% endif %}
-
             <a href="{% url 'landing:logout' %}" class="px-2 py-1 hover:bg-blue-300 rounded">Logout</a>
         </div>
       {% endif %}
