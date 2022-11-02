@@ -27,10 +27,8 @@ def show_obat_selain_apoteker(request,):
     data_obat = Obat.objects.all().values()
     try:
         userLogin = Landing.objects.get(user=request.user)
-        print("setelah login")
         if userLogin.is_patient:
             pasien = Layan.objects.get(user=userLogin)
-            print("setelah pasien")
             context = {
                 'pasien':pasien,
                 'userLogin':userLogin,
@@ -47,7 +45,6 @@ def show_obat_selain_apoteker(request,):
         context = {
             'list_obat' : data_obat,
         }
-    print(context)
     return render(request, "apotek_justview.html", context)
 
 def show_obat_json(request):
