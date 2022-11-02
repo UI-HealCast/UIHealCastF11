@@ -23,17 +23,25 @@ def show_obat(request):
     }
     return render(request, "apotek.html", context)
 
-def show_obat_selain_apoteker(request):
+def show_obat_selain_apoteker(request,):
+    data_obat = Obat.objects.all().values()
     try:
         userLogin = Landing.objects.get(user=request.user)
-        data_obat = Obat.objects.all().values()
-        context = {
-            'userLogin':userLogin,
-            'adalahPasien':userLogin.is_patient,
-            'list_obat' : data_obat,
-        }
+        if userLogin.is_patient:
+            pasien = Layan.objects.get(user=userLogin)
+            context = {
+                'pasien':pasien,
+                'userLogin':userLogin,
+                'adalahPasien':userLogin.is_patient,
+                'list_obat' : data_obat,
+            }
+        else:
+            context = {
+                'userLogin':userLogin,
+                'adalahPasien':userLogin.is_patient,
+                'list_obat' : data_obat,
+            }
     except:
-        data_obat = Obat.objects.all().values()
         context = {
             'list_obat' : data_obat,
         }
