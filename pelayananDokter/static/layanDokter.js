@@ -15,15 +15,6 @@ $(document).ready(function () {
               tab += `
               <div class="" id="${i.pk}div">
                             <div id="${i.pk}" class="bg-white rounded-2xl p-8 flex w-fit flex-col gap-2 hover:drop-shadow-2xl transition duration-300 ease-in-out">
-                                <p class="text-center text-xl font-semibold">${counter}</p>
-                                <p class="text-center text-xs">${i.fields.tanggal_janji.slice(0,10)} ${i.fields.tanggal_janji.slice(11,19)} </p>
-                                <div class="flex m-2 p-2 justify-center">
-                                    <div>
-                                        <div class="transition-opacity bg-gray-600 bg-opacity-10 rounded-2xl p-2">
-                                        <p class="break-all">${i.fields.usernameDokter}</p>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div>
                                   <p>Status Konsultasi : ${mssgDokter } </p>
                                   <p>Status Obat : ${mssgObat   }</p>

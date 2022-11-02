@@ -9,3 +9,5 @@ from pelayananDokter.models import Layan
 
 class Bayar(models.Model):
     user = models.ForeignKey(Landing, on_delete=models.CASCADE, null=True, blank=True, related_name = "landing_user")
+    bulan = models.CharField(max_length=225, default='')
+    keterangan = models.TextField()

@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+<title>Jadwal Operasi</title>
+<link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel=" stylesheet">
+
+<!--Regular Datatables CSS-->
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+<!--Responsive Extension Datatables CSS-->
+<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+
+<style>
+  /*Form fields*/
+  .dataTables_wrapper select,
+  .dataTables_wrapper .dataTables_filter input {
+    color: #4a5568;
+    /*text-gray-700*/
+    padding-left: 1rem;
+    /*pl-4*/
+    padding-right: 1rem;
+    /*pl-4*/
+    padding-top: .5rem;
+    /*pl-2*/
+    padding-bottom: .5rem;
+    /*pl-2*/
+    line-height: 1.25;
+    /*leading-tight*/
+    border-width: 2px;
+    /*border-2*/
+    border-radius: .25rem;
+    border-color: #edf2f7;
+    /*border-gray-200*/
+    background-color: #edf2f7;
+    /*bg-gray-200*/
+  }
+
+  /*Row Hover*/
+  table.dataTable.hover tbody tr:hover,
+  table.dataTable.display tbody tr:hover {
+    background-color: #ebf4ff;
+    /*bg-indigo-100*/
+  }
+
+  /*Pagination Buttons*/
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+			font-weight: 700;
+			/*font-bold*/
+			border-radius: .25rem;
+			/*rounded*/
+			border: 1px solid transparent;
+			/*border border-transparent*/
+		}
+
+		/*Pagination Buttons - Current selected */
+		.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+			color: #fff !important;
+			/*text-white*/
+			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+			/*shadow*/
+			font-weight: 700;
+			/*font-bold*/
+			border-radius: .25rem;
+			/*rounded*/
+			background: #667eea !important;
+			/*bg-indigo-500*/
+			border: 1px solid transparent;
+			/*border border-transparent*/
+		}
+/*Pagination Buttons - Hover */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+			color: #fff !important;
+			/*text-white*/
+			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+			/*shadow*/
+			font-weight: 700;
+			/*font-bold*/
+			border-radius: .25rem;
+			/*rounded*/
+			background: #667eea !important;
+			/*bg-indigo-500*/
+			border: 1px solid transparent;
+			/*border border-transparent*/
+		}
+
+		/*Add padding to bottom border */
+		table.dataTable.no-footer {
+			border-bottom: 1px solid #e2e8f0;
+			/*border-b-1 border-gray-300*/
+			margin-top: 0.75em;
+			margin-bottom: 0.75em;
+		}
+    /*Change colour of responsive icon*/
+    table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+		table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+			background-color: #667eea !important;
+			/*bg-indigo-500*/
+		}
+	</style>
+{% endblock meta %}
+
+{% block content %}
+<div class="h-fit rounded-2xl bg-gray-300 bg-op w-full p-2 ">
+<div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2">
+<div class=" p-4 bg-gray-300 h-fit rounded-2xl my-2">
+  <p class="font-bold text-2xl">Jadwal Operasi</p class="font-bold text-2xl">
+  {% if adalahDokter %}
+  <table id="tableJadwalDokter" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+  {% else %}
+  <table id="tableJadwalPasien" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+  {% endif %}
+    <thead>
+      <tr>
+        {% if adalahDokter %}
+          <th>Hapus</th>
+        {% endif %}
+          <th>Dokter</th>
+          <th>Pasien</th>
+          <th>Tanggal Operasi</th>
+          <th>Jam</th>
+          <th>Keterangan</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        {% if adalahDokter %}
+          <td>Hapus</td>
+        {% endif %}
+          <td>Dokter</td>
+          <td>Pasien</td>
+          <td>Tanggal Operasi</td>
+          <td>Jam</td>
+          <td>Keterangan</td>
+      </tr>
+      </tbody>
+  </table>
+</div>
+</div>
+{% if adalahDokter %}
+
+  <div class="flex justify-center h-full items-center">
+  <form class="form-operasi" action="" method="POST" id="tambah_jadwal">
+    {% csrf_token %}
+    <div class="flex justify-center">
+      <div class=" bg-yellow-300 p-3 rounded-2xl">
+        <div class="flex flex-col">
+          <p class="flex justify-center">Username Pasien</p>
+          {{form.pasien}}
+        </div>
+        <div class="flex flex-col">
+          <p class="flex justify-center">Tanggal Operasi</p>
+          {{form.tanggal}}
+        </div>
+        <div class="flex flex-col">
+          <p class="flex justify-center">Jam Operasi</p>
+          {{form.jam}}
+        </div>
+        <div>
+          <p class="flex justify-center">Keterangan</p>
+          {{form.keterangan}}
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center">
+    <input class="p-2 m-2 bg-green-300 rounded-2xl " type="submit" value="Submit" class="button">
+    </div>
+  </form>
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock content %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="{% static '/operasi.js' %}"></script>
+<script>
+function hapusJadwal(pk){
+  $.ajax({
+    url:'/operasi/delete/'+pk,
+    method: 'DELETE',
+    success: function(){
+      window.location.href = "/operasi/";
+    },
+    error: function(e){
+      alert(e);
+    }
+  });
+};
+</script>
+{% endblock script %}

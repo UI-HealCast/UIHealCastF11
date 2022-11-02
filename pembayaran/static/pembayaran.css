@@ -1,5 +1,6 @@
 .dataTables_wrapper select,
 .dataTables_wrapper .dataTables_filter input {
+    display: flex;
     color: #4a5568;
     padding-left: 1rem;
     padding-right: 1rem;
