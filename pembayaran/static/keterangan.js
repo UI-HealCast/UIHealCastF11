@@ -1,7 +1,7 @@
 $(document).ready(function () {
   let tab = '';
     $.ajax({
-      url: "/pelayananDokter/show_log",
+      url: "/pembayaran/keterangan/json/",
       type: "GET",
       dataType: "json",
       success: function(resp){

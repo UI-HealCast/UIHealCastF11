@@ -15,6 +15,7 @@ from django.http import JsonResponse
 import json
 from pembayaran.forms import DataUser
 from django.views.decorators.csrf import csrf_exempt
+from django.http.response import HttpResponseNotFound
 
 
 # Create your views here.
@@ -22,10 +23,18 @@ from django.views.decorators.csrf import csrf_exempt
 @login_required(login_url='../../login/')
 def show_data(request):
     data_pengguna = Layan.objects.all().values()
-    context = {
-        'list_pengguna' : data_pengguna,
-    }
-    return render(request, "pembayaran.html", context)
+    data = Landing.objects.get(user=request.user)
+    if data.is_admin:
+        context = {
+            'list_pengguna' : data_pengguna,
+        }
+        return render(request, "pembayaran.html", context)
+    else:
+        data_pengguna = Layan.objects.filter(user=data)
+        context = {
+            'list_pengguna' : data_pengguna,
+        }
+        return render(request,  "pembayaranPasien.html", context)
 
 @login_required(login_url='../../login/')
 @csrf_exempt
