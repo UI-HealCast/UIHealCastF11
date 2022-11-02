@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'pelayananDokter',
     'theme',
     'django_browser_reload',
+    'pelayananApotek',
     'pelayananKonseling',
     'operasi',
 ]
