@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+<title>Pelayanan Dokter</title>
+{% endblock meta %}
+
+{% block content %}
+<p class="font-bold text-2xl" style="text-align: center; margin-bottom: 0px;">Catatan Admin</p>
+
+<div class="h-screen rounded-2xl bg-white-300 bg-op w-full p-2" style="height: 50%; width: 70%; margin-left: 15%;">
+  <div class="flex justify-center h-full items-center" style="margin-top: 20px;">
+  <form class="form-curhat" action="" method="POST" id="tembak_db">
+    {% csrf_token %}
+    <div class="flex justify-center">
+      <div class=" bg-yellow-300 p-3 rounded-2xl" style="border-width: 0px; opacity: 90%; border-color: gray;">
+        <div class="flex flex-col">
+          <p class="flex justify-left">Bulan : </p>
+          {{form.bulan}}
+        </div>
+        <div>
+          <p class="flex justify-left">Keterangan : </p>
+          {{form.keterangan}}
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <a class="p-2 m-2 bg-gray-300 rounded-2xl" href="/pembayaran" style="background-color: black; color:white; font-weight: 600; border-radius: 10px; padding-left: 20px; padding-right: 20px;" > Back </a>
+    <input class="p-2 m-2 bg-green-300 rounded-2xl" type="submit" value="Submit" class="button" style="background-color: #00D26A; color:black; font-weight: 600; border-radius: 10px; padding-left: 20px; padding-right: 20px;">
+    </div>
+  </form>
+  </div>
+</div>
+<div class=" p-4 bg-yellow-300 h-fit rounded-2xl my-2">
+  <p class="font-bold text-2xl">Catatan Admin</p class="font-bold text-2xl">
+    <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-5 mt-8 sm:mt-5" id="logPesanan">
+    </div>
+    <!-- <div class="" id="{{pk}}div">
+      <div  class="bg-white rounded-2xl p-8 flex w-fit flex-col gap-2 hover:drop-shadow-2xl transition duration-300 ease-in-out">
+          <div>
+            <p>Bulan : {{bulan}} </p>
+            <p>Keterangan : {{keterangan}}</p>
+          </div>
+        </div>
+    </div> -->
+</div>
+{% endblock content %}
+
+
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static '/keterangan.js' %}"></script>
+{% endblock script %}

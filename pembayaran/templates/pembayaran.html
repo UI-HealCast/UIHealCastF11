@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+
+<title>Pembayaran</title>
+
+{% load static %}
+<link rel="stylesheet" href="{% static './pembayaran.css' %}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>DataTables </title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel=" stylesheet">
+
+	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+	<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-gray-100 text-gray-900 tracking-wider leading-normal">
+
+	<div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2">
+
+		<h1 class="flex items-center font-sans font-bold break-normal text-indigo-500 px-2 py-8 text-xl md:text-2xl" style="color: black;">
+			<a class="mx-2">Verifikasi Pembayaran</a>
+		</h1>
+
+		<div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+
+
+			<table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+				<thead>
+					<tr>
+						<th data-priority="1">Nama Pasien</th>
+						<th data-priority="2">Nomor Telefon</th>
+						<th data-priority="3">Keluhan Penyakit</th>
+						<th data-priority="4">Hasil</th>
+						<th data-priority="5">Pembayaran</th>
+                        <th data-priority="6">Verifikasi</th>
+					</tr>
+				</thead>
+				<tbody>
+
+                    {% for pengguna in list_pengguna %}
+                        {% if pengguna.statusBayar %}
+                            <tr>
+                                <td>{{pengguna.username}}</td>
+                                <td style="text-align: center;">{{pengguna.noHP}}</td>
+                                <td style="text-align: center;">{{pengguna.keluhan}}</td>
+                                <td style="text-align: center;">{{pengguna.hasilPeriksa}}</td>
+                                <td style="text-align: center;"><input class="p-2 m-2 bg-white-300 rounded-2xl" type="submit" value="✅" class="button"></td>
+                                <td> </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>{{pengguna.username}}</td>
+                                <td style="text-align: center;">{{pengguna.noHP}}</td>
+                                <td style="text-align: center;">{{pengguna.keluhan}}</td>
+                                <td style="text-align: center;">{{pengguna.hasilPeriksa}}</td>
+                                <td style="text-align: center;"><input class="p-2 m-2 bg-white-300 rounded-2xl" type="submit" value="❌" class="button"></td>
+                                <td style="text-align: center; color: black;"><a href="/pembayaran/change_status/{{pengguna.id}}">
+                                    <button class="p-2 m-2 bg-yellow-300 rounded-2xl" type="submit" class="button" style="font-weight: 600">Verifikasi</button>
+                                </a></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+				</tbody>
+
+			</table>
+
+			
+		</div>
+		
+	</div>
+	<div style="text-align: center;">
+		<td style="text-align: center;"><a href="/pembayaran/keterangan/">
+			<button class="h-10 px-6 m-10 font-semibold rounded-md bg-black text-white" type="submit" class="button" style="font-weight: 600; color: white;">Catatan Bulanan</button>
+		</a></td>
+	</div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			var table = $('#example').DataTable({
+					responsive: true
+				})
+				.columns.adjust()
+				.responsive.recalc();
+		});
+	</script>
+
+</body>
+
+</html>
+{% endblock content %}
