@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'pelayananKonseling',
     'operasi',
     'pembayaran',
+    "authentication",
+    "corsheaders",
 ]
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 TAILWIND_APP_NAME = 'theme'
@@ -65,7 +67,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS=True
+
+CORS_ALLOW_CREDENTIALS=True
+
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SAMESITE = 'None'
+
+SESSION_COOKIE_SAMESITE = 'None'
 
 ROOT_URLCONF = 'project_django.urls'
 
