@@ -46,6 +46,11 @@ def isDoctor(masuk):
     if masuk.is_doctor:
         return True
 
+
+def doctorReady(masuk):
+    data = Landing.objects.filter(doctorReady=True)
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
 def isApotek(masuk):
     if masuk.is_apotek:
         return True

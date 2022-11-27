@@ -40,7 +40,7 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-
+@csrf_exempt
 def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -50,9 +50,17 @@ def login_user(request):
             auth_login(request, user) # melakukan login terlebih dahulu
             response = HttpResponseRedirect(reverse("landing:index")) # membuat response
             response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
-            return response
+            return JsonResponse({
+            "status": True,
+            "message": "Successfully Logged In!"
+            # Insert any extra data if you want to pass data to Flutter
+            }, status=200)
         else:
             messages.info(request, 'Username atau Password salah!')
+            return JsonResponse({
+            "status": False,
+            "message": "Failed to Login, check your email/password."
+            }, status=401)
     context = {}
     return render(request, 'login.html', context)
 
