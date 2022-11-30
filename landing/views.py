@@ -215,7 +215,7 @@ def modif_hasil(request):
     if request.method == 'POST':
         desc = request.POST.get('hasil')
         peka = request.POST.get('peka')
-        dataMasuk = Layan.objects.get(pk=peka)
+        dataMasuk = Layan.objects.get(pk=int(peka))
         dataMasuk.hasilPeriksa = desc
         dataMasuk.status = not dataMasuk.status
         dataMasuk.save()
