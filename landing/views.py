@@ -50,8 +50,18 @@ def login_user(request):
             auth_login(request, user) # melakukan login terlebih dahulu
             response = HttpResponseRedirect(reverse("landing:index")) # membuat response
             response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
+            masuk = getUser(request.user)
+            statusAdmin = isAdmin(masuk)
+            statusApotek = isApotek(masuk)
+            statusDokter = isDoctor(masuk)
+            statusPatient = isPatient(masuk)
+                
             return JsonResponse({
             "status": True,
+            'statPat' : statusPatient,
+            'statDok' : statusDokter,
+            'statApo' : statusApotek,
+            'statAdm' : statusAdmin,
             "message": "Successfully Logged In!"
             # Insert any extra data if you want to pass data to Flutter
             }, status=200)
@@ -64,6 +74,8 @@ def login_user(request):
     context = {}
     return render(request, 'login.html', context)
 
+
+@csrf_exempt
 def register(request):
     form = UserCreationForm()
 
@@ -75,7 +87,17 @@ def register(request):
             messages.success(request, 'Akun telah berhasil dibuat!')
             getUs = User.objects.get(username=uname)
             Landing.objects.create(user=getUs, is_patient=True, username=getUs.username)
-            return redirect('landing:login')
+            return JsonResponse({
+            "status": True,
+            "message": "Successfully Register!"
+            # Insert any extra data if you want to pass data to Flutter
+            }, status=200)
+        else :
+            return JsonResponse({
+            "status": False,
+            "message": "Failed to Register."
+            }, status=401)
+            
     
     context = {'form':form}
     return render(request, 'register.html', context)
@@ -84,23 +106,31 @@ def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('landing:index'))
     response.delete_cookie('last_login')
-    return response
+    return JsonResponse({
+            "status": True,
+            "message": "Successfully Register!"
+            # Insert any extra data if you want to pass data to Flutter
+            }, status=200)
 
 def isPatient(masuk):
     if masuk.is_patient:
         return True
+    return False
 
 def isDoctor(masuk):
     if masuk.is_doctor:
         return True
+    return False
 
 def isApotek(masuk):
     if masuk.is_apotek:
         return True
+    return False
 
 def isAdmin(masuk):
     if masuk.is_admin:
         return True
+    return False
 
 def getUser(test):
     return Landing.objects.get(user=test.pk)
@@ -189,7 +219,11 @@ def modif_hasil(request):
         dataMasuk.hasilPeriksa = desc
         dataMasuk.status = not dataMasuk.status
         dataMasuk.save()
-        return JsonResponse({"instance": "Proyek Dibuat"},status=200)
+        return JsonResponse({
+            "status": True,
+            "message": "Successfully Edited!"
+            # Insert any extra data if you want to pass data to Flutter
+            }, status=200)
 
 @login_required(login_url='../../login/')
 def show_json_konseling_dokter(request):
