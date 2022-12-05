@@ -65,6 +65,10 @@ def jadwal_operasi_json(request):
         data = Operasi.objects.filter(pasien=userLogin)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+def list_pasien_json(request):
+    data = Landing.objects.filter(is_patient=True)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
 
 @csrf_exempt
 def delete_operasi(request, pk):
