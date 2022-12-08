@@ -9,10 +9,9 @@ from operasi.forms import OperasiForm
 from django.contrib.auth.models import User
 from itertools import chain
 from pelayananDokter.views import isDoctor, isPatient, isApotek, isAdmin
+from datetime import datetime
 
 # Create your views here.
-
-
 @login_required(login_url='../../login/')
 def show_jadwal_operasi(request):
     userLogin = Landing.objects.get(user=request.user)
@@ -48,7 +47,11 @@ def add_jadwal_operasi(request):
         pasienVal = str(request.POST.get('pasien'))
         pasien = Landing.objects.get(username=pasienVal)
         tanggal = request.POST.get('tanggal')
+        if (isinstance(tanggal, str)):
+            tanggal = datetime.strptime(tanggal, '%Y-%m-%d')
         jam = request.POST.get('jam')
+        if (isinstance(jam, str)):
+            jam = datetime.strptime(jam, '%H:%M:%S')
         keterangan = request.POST.get('keterangan')
 
         Operasi.objects.create(dokter=dokter, usernameDokter=dokter.username, pasien=pasien,
@@ -57,13 +60,14 @@ def add_jadwal_operasi(request):
         return JsonResponse({"data": "jadwal"}, status=200)
 
 
+@login_required(login_url='../../login/')
 def jadwal_operasi_json(request):
     userLogin = Landing.objects.get(user=request.user)
     if userLogin.is_doctor:
         data = Operasi.objects.filter(dokter=userLogin)
     elif userLogin.is_patient:
         data = Operasi.objects.filter(pasien=userLogin)
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    return HttpResponse(serializers.serialize("json", data.order_by('tanggal', 'jam')), content_type="application/json")
 
 def list_pasien_json(request):
     data = Landing.objects.filter(is_patient=True)
