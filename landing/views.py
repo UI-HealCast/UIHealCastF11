@@ -204,11 +204,10 @@ def show_dokter(request):
 
 @csrf_exempt
 def change_status(request):
-     if request.method == "PATCH":
-        task = Landing.objects.get(user=request.user)
-        task.doctorReady = not (task.doctorReady)
-        task.save()
-        return JsonResponse({"instance": "Proyek Dibuat"},status=200)
+    task = Landing.objects.get(user=request.user)
+    task.doctorReady = not (task.doctorReady)
+    task.save()
+    return JsonResponse({"instance": "Proyek Dibuat"},status=200)
 
 @csrf_exempt
 def modif_hasil(request):
