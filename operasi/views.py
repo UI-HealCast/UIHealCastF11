@@ -59,8 +59,6 @@ def add_jadwal_operasi(request):
                                keterangan=keterangan)
         return JsonResponse({"data": "jadwal"}, status=200)
 
-
-@login_required(login_url='../../login/')
 def jadwal_operasi_json(request):
     userLogin = Landing.objects.get(user=request.user)
     if userLogin.is_doctor:
