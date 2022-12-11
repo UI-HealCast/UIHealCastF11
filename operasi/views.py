@@ -82,4 +82,4 @@ def delete_operasi(request, pk):
 def delete_operasi_flutter(request, pk):
     getOperasi = Operasi.objects.filter(pk=pk)
     getOperasi.delete()
-    return HttpResponse(serializers.serialize("json", getOperasi), content_type="application/json")
+    return jadwal_operasi_json(request)
