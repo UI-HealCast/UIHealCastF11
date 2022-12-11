@@ -77,3 +77,9 @@ def delete_operasi(request, pk):
     getOperasi = Operasi.objects.filter(pk=pk)
     getOperasi.delete()
     return show_jadwal_operasi(request)
+
+@csrf_exempt
+def delete_operasi_flutter(request, pk):
+    getOperasi = Operasi.objects.filter(pk=pk)
+    getOperasi.delete()
+    return HttpResponse()
