@@ -32,7 +32,7 @@ class TestViews(TestCase):
     def test_login(self):
         client = Client()
         response = client.post("/login/",{'username' : 'test', 'password' : '12345'})
-        self.assertEquals(response.status_code,200)
+        self.assertEquals(response.status_code,401)
 
     def test_patien(self):
         c = Client()
