@@ -9,6 +9,7 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from pelayananApotek.forms import ObatForm
 from django.contrib.auth.models import User
+import json
 
 # Create your views here.
 def show_obat(request):
@@ -23,7 +24,7 @@ def show_obat(request):
     }
     return render(request, "apotek.html", context)
 
-def show_obat_selain_apoteker(request,):
+def show_obat_selain_apoteker(request):
     data_obat = Obat.objects.all().values()
     try:
         userLogin = Landing.objects.get(user=request.user)
@@ -46,6 +47,7 @@ def show_obat_selain_apoteker(request,):
             'list_obat' : data_obat,
         }
     return render(request, "apotek_justview.html", context)
+
 
 def show_obat_json(request):
     data_obat = Obat.objects.all()
@@ -100,10 +102,53 @@ def delete_obat(request, pk):
         Obat.objects.filter(id=pk).delete()
     return JsonResponse({"instance": "Proyek Dihapus"},status=200)
 
+def delete_obat_flutter(request, pk):
+    getObat = Obat.objects.filter(id=pk)
+    getObat.delete()
+    return HttpResponse(serializers.serialize("json", getObat), content_type="application/json")
+
 def change_status_obat(request, pk):
     obat = Obat.objects.get(id=pk)
     obat.status_obat = not(obat.status_obat)
     obat.save()
     return HttpResponse(obat.status_obat)
 
+def change_status_obat_flutter(request, pk):
+    # if request.method == 'POST':
+    obat = Obat.objects.get(id=pk)
+
+    obat.status_obat = not(obat.status_obat)
+    obat.save()
+
+    return JsonResponse({"status": "success"}, status = 200)
+
+def change_status_pasien_flutter(request, pk):
+    # if request.method == 'POST':
+    pasien = Layan.objects.get(id=pk)
+
+    pasien.statusObat = not(pasien.statusObat)
+    pasien.save()
+
+    return JsonResponse({"status": "success"}, status = 200)
+
+
+# def get_user(request):
+#     userLogin = Landing.objects.get(user=request.user)
+#     if userLogin.is_patient:
+#         pasien = Layan.objects.get(user=userLogin)
+#         return HttpResponse(serializers.serialize("json", pasien), content_type="application/json")
+#     else:
+#         return JsonResponse({"status": "failed"}, status = 401)
+            
+    
+    # else :
+    #     return JsonResponse({"status":"error"}, status = 401)
+    #     obat = Obat.objects.get(id=pk)
+    #     obat.status_obat = not(obat.status_obat)
+    #     obat.save()
+    # return JsonResponse({Obat.objects.get(id=pk).status_obat})
+
+
+# def get_status_obat_pasien(request, username):
+#     pasien = Layans.objects.get(username=username)
 
