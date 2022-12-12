@@ -9,7 +9,6 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from pelayananApotek.forms import ObatForm
 from django.contrib.auth.models import User
-import json
 
 # Create your views here.
 def show_obat(request):
