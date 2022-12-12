@@ -1,6 +1,6 @@
 # UI HealCast
 
-[![Test and Deploy][actions-badge]][commits-gh]
+[![Test and Deploy][actions-badge]][commits-gh]!
 [![codecov](https://codecov.io/gh/UI-HealCast/UIHealCastF11/branch/main/graph/badge.svg?token=F1M1RUWJ28)](https://codecov.io/gh/UI-HealCast/UIHealCastF11)
 
 > Proyek ini dibuat untuk memenuhi tugas Proyek Tengah Semester (PTS)
